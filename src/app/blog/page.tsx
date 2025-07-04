@@ -13,6 +13,7 @@ export default function Blog() {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value
@@ -30,6 +31,7 @@ export default function Blog() {
       return
     }
     
+    setLoading(true)
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
@@ -44,6 +46,8 @@ export default function Blog() {
       }
     } catch (error) {
       setEmailError('An error occurred. Please try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -192,9 +196,10 @@ export default function Blog() {
                 </div>
                 <button 
                   onClick={handleSubscribe}
-                  className="bg-[#64ffda] text-[#0a192f] hover:bg-[#64ffda]/90 transition-colors duration-300 px-6 py-3 rounded-lg font-medium whitespace-nowrap"
+                  disabled={loading}
+                  className="bg-[#64ffda] text-[#0a192f] hover:bg-[#64ffda]/90 transition-colors duration-300 px-6 py-3 rounded-lg font-medium whitespace-nowrap disabled:bg-gray-500 disabled:cursor-not-allowed"
                 >
-                  Subscribe
+                  {loading ? 'Subscribing...' : 'Subscribe'}
                 </button>
               </div>
             )}
