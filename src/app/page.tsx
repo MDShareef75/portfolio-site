@@ -30,7 +30,7 @@ export default function Home() {
           </div>
           
           {/* Profile Image Container with enhanced glow */}
-          <div className="relative py-6 md:py-8">
+          <div className="relative py-6 md:py-8 mt-16">
             <div className="absolute inset-[-10%] bg-gradient-to-r from-[#64ffda]/30 via-blue-500/30 to-purple-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
             <div className="relative z-10">
               <ProfileImage />
