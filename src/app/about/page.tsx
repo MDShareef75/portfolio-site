@@ -39,7 +39,7 @@ export default function About() {
     <div className="min-h-screen relative overflow-hidden">
       <div className="container mx-auto px-4 py-16 relative">
         {/* Header Section */}
-        <div className="text-center mb-16 relative">
+        <div className="text-center mb-16 mt-16 relative">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">
             About Me
           </h1>

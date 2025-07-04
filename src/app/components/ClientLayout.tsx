@@ -184,7 +184,7 @@ export default function ClientLayout({
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow pt-20 md:pt-28 relative z-10">
+      <main className="flex-grow pt-8 md:pt-12 relative z-10">
         {children}
       </main>
 
