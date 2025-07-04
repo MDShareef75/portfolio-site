@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
   try {
     await resend.emails.send({
-      from: 'onboarding@resend.dev', // IMPORTANT: Replace with your verified sending email
+      from: 'noreply@atomsinnovation.com', // IMPORTANT: Make sure this email is verified in your Resend account
       to: 'contact@atomsinnovation.com',
       subject: 'New Subscriber to Your Blog',
       html: `<p>A new user has subscribed with the email: <strong>${email}</strong></p>`
