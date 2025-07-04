@@ -10,6 +10,42 @@ const categories = ['All', 'Web Dev', 'Mobile Dev', 'AI/ML', 'DevOps']
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value
+    setEmail(newEmail)
+    if (newEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
+      setEmailError('Please enter a valid email address.')
+    } else {
+      setEmailError('')
+    }
+  }
+
+  const handleSubscribe = async () => {
+    if (!email || emailError) {
+      setEmailError('Please enter a valid email address.')
+      return
+    }
+    
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setSubscribed(true)
+      } else {
+        setEmailError('Subscription failed. Please try again.')
+      }
+    } catch (error) {
+      setEmailError('An error occurred. Please try again.')
+    }
+  }
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -140,16 +176,28 @@ export default function Blog() {
           <div className="bg-[#112240] p-8 rounded-2xl text-center shadow-lg">
             <h3 className="text-2xl font-bold text-white mb-4">Stay Updated</h3>
             <p className="text-gray-300 mb-6">Subscribe to get notified about new articles and tutorials</p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-[#233554] border border-[#64ffda]/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300"
-              />
-              <button className="bg-[#64ffda] text-[#0a192f] hover:bg-[#64ffda]/90 transition-colors duration-300 px-6 py-3 rounded-lg font-medium whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
+            {subscribed ? (
+              <p className="text-[#64ffda]">Thank you for subscribing!</p>
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <div className="flex-1">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    className={`w-full px-4 py-3 bg-[#233554] border ${emailError ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
+                  />
+                  {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+                </div>
+                <button 
+                  onClick={handleSubscribe}
+                  className="bg-[#64ffda] text-[#0a192f] hover:bg-[#64ffda]/90 transition-colors duration-300 px-6 py-3 rounded-lg font-medium whitespace-nowrap"
+                >
+                  Subscribe
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

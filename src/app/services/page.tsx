@@ -13,6 +13,13 @@ const services = [
       'Responsive Design',
       'Performance Optimization',
       'SEO Integration'
+    ],
+    pricing: [
+      { tier: 'Basic Portfolio / Informational', range: '₹5,000 – ₹25,000' },
+      { tier: 'Small Business Website', range: '₹25,000 – ₹1,00,000' },
+      { tier: 'Custom Web App (React/Next.js)', range: '₹1,00,000 – ₹3,00,000+' },
+      { tier: 'E-commerce Website (WooCommerce)', range: '₹75,000 – ₹2,00,000' },
+      { tier: 'Enterprise Web Platform', range: '₹1,50,000 – ₹7,50,000+' }
     ]
   },
   {
@@ -25,30 +32,47 @@ const services = [
       'Cross-Platform Apps',
       'Push Notifications',
       'Offline Support'
+    ],
+    pricing: [
+        { tier: 'Simple App (MVP)', range: '₹2,00,000 – ₹5,00,000' },
+        { tier: 'Medium Complexity App', range: '₹5,00,000 – ₹12,50,000' },
+        { tier: 'Complex App', range: '₹12,50,000 – ₹37,50,000+' },
+        { tier: 'Cross-platform (Flutter)', range: '20–30% cheaper than native' }
     ]
   },
   {
     id: 3,
-    title: 'Backend Development',
+    title: 'E-commerce Solutions',
     description: 'Developing robust backend systems and APIs using Node.js, Python, and cloud technologies.',
-    icon: '⚙️',
+    icon: '🛒',
     features: [
       'API Development',
       'Database Design',
       'Cloud Integration',
       'Security Implementation'
+    ],
+    pricing: [
+        { tier: 'Shopify Basic Setup', range: '₹15,000 – ₹50,000' },
+        { tier: 'WooCommerce Site', range: '₹50,000 – ₹1,50,000' },
+        { tier: 'Custom E-commerce App', range: '₹1,50,000 – ₹5,00,000+' },
+        { tier: 'Enterprise E-commerce', range: '₹5,00,000 – ₹25,00,000+' }
     ]
   },
   {
     id: 4,
-    title: 'UI/UX Design',
+    title: 'Freelance Packages',
     description: 'Crafting beautiful and intuitive user interfaces with a focus on user experience and modern design principles.',
-    icon: '🎨',
+    icon: '🤝',
     features: [
       'User Research',
       'Wireframing',
       'Prototyping',
       'Design Systems'
+    ],
+    pricing: [
+        { tier: 'Starter', range: '₹7,500 – ₹15,000 (Static site or basic app)' },
+        { tier: 'Growth', range: '₹25,000 – ₹75,000 (Dynamic site or MVP app)' },
+        { tier: 'Premium', range: '₹1,00,000+ (Full-stack app with backend, analytics, integrations)' }
     ]
   }
 ]
@@ -119,6 +143,19 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
+
+                {/* Pricing Section */}
+                <div className="mt-6">
+                  <h4 className="text-lg font-semibold text-[#64ffda] mb-3">Price Ranges</h4>
+                  <ul className="space-y-2">
+                    {service.pricing.map((priceTier, index) => (
+                      <li key={index} className="flex justify-between items-center text-sm">
+                        <span className="text-gray-400">{priceTier.tier}</span>
+                        <span className="font-medium text-gray-200">{priceTier.range}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               {/* Hover Effect */}

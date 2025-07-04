@@ -6,6 +6,8 @@ const skills = [
   { name: 'TypeScript', level: 'Advanced', category: 'Frontend', icon: '📘' },
   { name: 'Node.js', level: 'Advanced', category: 'Backend', icon: '🟢' },
   { name: 'Python', level: 'Advanced', category: 'Backend', icon: '🐍' },
+  { name: 'Java', level: 'Advanced', category: 'Backend', icon: '☕' },
+  { name: 'Spring Boot', level: 'Advanced', category: 'Backend', icon: '🌱' },
   { name: 'React Native', level: 'Advanced', category: 'Mobile', icon: '📱' },
   { name: 'Flutter', level: 'Intermediate', category: 'Mobile', icon: '💙' },
   { name: 'Docker', level: 'Intermediate', category: 'DevOps', icon: '🐳' },
