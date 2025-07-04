@@ -1,0 +1,34 @@
+[debug] [2025-07-04T13:52:56.192Z] ----------------------------------------------------------------------
+[debug] [2025-07-04T13:52:56.196Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mdsha\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-07-04T13:52:56.197Z] CLI Version:   14.9.0
+[debug] [2025-07-04T13:52:56.197Z] Platform:      win32
+[debug] [2025-07-04T13:52:56.197Z] Node Version:  v22.15.0
+[debug] [2025-07-04T13:52:56.197Z] Time:          Fri Jul 04 2025 19:22:56 GMT+0530 (India Standard Time)
+[debug] [2025-07-04T13:52:56.198Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-04T13:52:56.637Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-04T13:52:56.638Z] > authorizing via signed-in user (mdshareef75@gmail.com)
+[debug] [2025-07-04T13:52:56.638Z] [iam] checking project atoms-portfolio for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-07-04T13:52:56.640Z] Checked if tokens are valid: true, expires at: 1751640057637
+[debug] [2025-07-04T13:52:56.641Z] Checked if tokens are valid: true, expires at: 1751640057637
+[debug] [2025-07-04T13:52:56.645Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/atoms-portfolio:testIamPermissions [none]
+[debug] [2025-07-04T13:52:56.645Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/atoms-portfolio:testIamPermissions x-goog-quota-user=projects/atoms-portfolio
+[debug] [2025-07-04T13:52:56.646Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/atoms-portfolio:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-07-04T13:52:58.049Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/atoms-portfolio:testIamPermissions 200
+[debug] [2025-07-04T13:52:58.050Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/atoms-portfolio:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-07-04T13:52:58.050Z] Checked if tokens are valid: true, expires at: 1751640057637
+[debug] [2025-07-04T13:52:58.050Z] Checked if tokens are valid: true, expires at: 1751640057637
+[debug] [2025-07-04T13:52:58.051Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/atoms-portfolio/serviceAccounts/atoms-portfolio@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-07-04T13:52:58.051Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/atoms-portfolio/serviceAccounts/atoms-portfolio@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-07-04T13:52:59.540Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/atoms-portfolio/serviceAccounts/atoms-portfolio@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-07-04T13:52:59.540Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/atoms-portfolio/serviceAccounts/atoms-portfolio@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-07-04T13:52:59.541Z] Checked if tokens are valid: true, expires at: 1751640057637
+[debug] [2025-07-04T13:52:59.541Z] Checked if tokens are valid: true, expires at: 1751640057637
+[debug] [2025-07-04T13:52:59.541Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/atoms-portfolio [none]
+[debug] [2025-07-04T13:53:00.162Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/atoms-portfolio 200
+[debug] [2025-07-04T13:53:00.163Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/atoms-portfolio {"projectId":"atoms-portfolio","projectNumber":"933425041911","displayName":"atoms-portfolio","name":"projects/atoms-portfolio","resources":{"hostingSite":"atoms-portfolio"},"state":"ACTIVE","etag":"1_81dd83c0-d8e0-43f0-9a21-80da23bd069f"}
+[info] 
+[info] === Deploying to 'atoms-portfolio'...
+[info] 
+[info] i  deploying functions, hosting 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
