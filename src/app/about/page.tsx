@@ -74,13 +74,13 @@ export default function About() {
 
           <div className="relative group">
             <div className="absolute inset-[-10%] bg-gradient-to-r from-[#64ffda]/20 via-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl animate-pulse-slow"></div>
-            <div className="relative rounded-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-500">
+            <div className="relative h-96 rounded-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-500">
               <Image
                 src="/images/IMG_0609.jpg"
                 alt="Mohammed Shareef"
                 width={800}
                 height={600}
-                className="w-full h-auto rounded-2xl"
+                className="w-full h-full object-cover rounded-2xl"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/80 via-transparent to-transparent"></div>

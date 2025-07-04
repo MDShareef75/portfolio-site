@@ -17,7 +17,7 @@ export default function Blog() {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value
     setEmail(newEmail)
-    if (newEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
+    if (newEmail && !/^[^\s@]+@[^\s@]+\\.[^\s@]+$/.test(newEmail)) {
       setEmailError('Please enter a valid email address.')
     } else {
       setEmailError('')
