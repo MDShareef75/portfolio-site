@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Header Text */}
-      <div className="absolute top-0 left-0 right-0 pt-10 md:pt-12 pb-0 px-2 md:px-4 text-center z-20">
+      <div className="absolute top-0 left-0 right-0 pt-16 md:pt-20 pb-0 px-2 md:px-4 text-center z-20">
         <div className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#112240]/30 backdrop-blur-md border border-[#233554]/50 hover:bg-[#112240]/40 transition-all duration-300">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient tracking-wide">
             Atom&apos;s Innovation Hub
@@ -15,7 +15,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="container mx-auto px-4 py-0 flex items-center justify-center min-h-[calc(100vh-4rem)] relative mt-20">
+      <section className="container mx-auto px-4 py-0 flex items-center justify-center min-h-[calc(100vh-4rem)] relative">
         <div className="text-center w-full max-w-3xl relative">
           {/* Additional colorful elements */}
           <div className="absolute -top-40 -left-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
