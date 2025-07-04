@@ -45,7 +45,7 @@ export default function ClientLayout({
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 right-0 z-50">
         {/* Gradient overlay behind navbar for seamless blend */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a192f]/80 to-transparent pointer-events-none z-[-1]" />
+        <div className="fixed top-0 left-0 w-full h-20 md:h-28 bg-gradient-to-b from-[#0a192f]/80 to-transparent pointer-events-none z-[-1]" />
         <nav className="bg-transparent backdrop-blur-xl border-b border-[#233554]/50">
           <div className="container mx-auto px-4 py-2 md:py-4">
             <div className="flex items-center justify-between">
