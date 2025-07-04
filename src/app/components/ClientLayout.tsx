@@ -4,10 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import useSWR from 'swr'
-
-const VISITOR_COUNT_URL = 'https://us-central1-atoms-portfolio.cloudfunctions.net/visitorCount';
-const fetcher = (url: string) => fetch(url).then(res => res.json())
+import VisitorCounter from './VisitorCounter'
 
 export default function ClientLayout({
   children,
@@ -34,9 +31,6 @@ export default function ClientLayout({
     }
     return pathname.startsWith(path)
   }
-
-  // Visitor count logic
-  const { data: visitorData, error: visitorError, isLoading: visitorLoading } = useSWR(VISITOR_COUNT_URL, fetcher, { revalidateOnFocus: false })
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -230,7 +224,7 @@ export default function ClientLayout({
               © {new Date().getFullYear()} Mohammed Shareef. All rights reserved.
             </p>
             <div className="text-center mt-2 text-xs text-[#64ffda]">
-              {visitorLoading ? 'Loading visitors...' : visitorError ? 'Could not load visitor count.' : `👁️ ${visitorData?.count ?? 0} visitors`}
+              <VisitorCounter />
             </div>
           </div>
         </div>
