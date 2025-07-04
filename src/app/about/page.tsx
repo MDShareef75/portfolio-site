@@ -2,75 +2,38 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import useSWR from 'swr'
 
 const categories = ['All', 'Frontend', 'Backend', 'Mobile', 'DevOps', 'Tools']
 
-const skills = [
-  { name: 'React', level: 'Advanced', category: 'Frontend', icon: '⚛️' },
-  { name: 'Next.js', level: 'Advanced', category: 'Frontend', icon: '▲' },
-  { name: 'TypeScript', level: 'Advanced', category: 'Frontend', icon: '📘' },
-  { name: 'Node.js', level: 'Advanced', category: 'Backend', icon: '🟢' },
-  { name: 'Python', level: 'Advanced', category: 'Backend', icon: '🐍' },
-  { name: 'React Native', level: 'Advanced', category: 'Mobile', icon: '📱' },
-  { name: 'Flutter', level: 'Intermediate', category: 'Mobile', icon: '💙' },
-  { name: 'Docker', level: 'Intermediate', category: 'DevOps', icon: '🐳' },
-  { name: 'AWS', level: 'Intermediate', category: 'DevOps', icon: '☁️' },
-  { name: 'Git', level: 'Advanced', category: 'Tools', icon: '📚' },
-  { name: 'MongoDB', level: 'Advanced', category: 'Backend', icon: '🍃' },
-  { name: 'PostgreSQL', level: 'Advanced', category: 'Backend', icon: '🐘' },
-]
-
-const timeline = [
-  {
-    year: '2024',
-    title: 'Full Stack Developer',
-    company: 'Appreciate Platforms Private Limited',
-    description: 'Currently working on modern web applications using cutting-edge technologies.',
-    type: 'work'
-  },
-  {
-    year: '2020-2024',
-    title: 'Full Stack Developer',
-    company: 'Pace Wisdom Solutions PVT LTD',
-    description: 'Led development of enterprise applications, specializing in Java/Spring Boot backend and React frontend.',
-    type: 'work'
-  }
-]
-
-const interests = [
-  { icon: '🤖', text: 'Passionate about Artificial Intelligence and Machine Learning' },
-  { icon: '🔌', text: 'Interested in Embedded Systems and IoT' },
-  { icon: '📱', text: 'Full Stack Development with modern technologies' },
-  { icon: '🎯', text: 'Problem Solving and Algorithm Design' },
-  { icon: '🔄', text: 'Continuous Learning and Technology Exploration' },
-  { icon: '🌱', text: 'Open Source Contribution and Community Building' }
-]
-
-const funFacts = [
-  { icon: '☕', text: 'Fueled by coffee and creativity' },
-  { icon: '🌙', text: 'Night owl - best code happens after 10 PM' },
-  { icon: '🎮', text: 'Gaming enthusiast - strategy games are my favorite' },
-  { icon: '📚', text: 'Continuous learner - always exploring new technologies' },
-  { icon: '🎵', text: 'Code better with lo-fi music' },
-  { icon: '🌱', text: 'Passionate about sustainable tech solutions' }
-]
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function About() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [mounted, setMounted] = useState(false)
   const categories = ['All', 'Backend', 'Frontend', 'Database', 'Tools', 'AI', 'Embedded', 'Language']
 
+  const { data, error, isLoading } = useSWR('/api/about', fetcher, { revalidateOnFocus: false })
+
   useEffect(() => {
     setMounted(true)
   }, [])
 
+  if (!mounted || isLoading) {
+    return <div className="text-center py-20 text-xl text-[#64ffda]">Loading...</div>
+  }
+  if (error) {
+    return <div className="text-center py-20 text-xl text-red-400">Failed to load about data.</div>
+  }
+
+  const skills = data.skills
+  const timeline = data.timeline
+  const interests = data.interests
+  const funFacts = data.funFacts
+
   const filteredSkills = activeCategory === 'All' 
     ? skills 
-    : skills.filter(skill => skill.category === activeCategory)
-
-  if (!mounted) {
-    return null
-  }
+    : skills.filter((skill: any) => skill.category === activeCategory)
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -118,6 +81,7 @@ export default function About() {
                 width={800}
                 height={600}
                 className="w-full h-auto rounded-2xl"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/80 via-transparent to-transparent"></div>
             </div>
@@ -149,8 +113,8 @@ export default function About() {
           {/* Skills Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {skills
-              .filter(skill => activeCategory === 'All' || skill.category === activeCategory)
-              .map((skill, index) => (
+              .filter((skill: any) => activeCategory === 'All' || skill.category === activeCategory)
+              .map((skill: any, index: number) => (
                 <div
                   key={skill.name}
                   className="glassmorphism-card p-4 rounded-xl group hover:border-[#64ffda]/30 transition-all duration-500"
@@ -174,7 +138,7 @@ export default function About() {
             {/* Timeline line */}
             <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-[#233554]"></div>
             
-            {timeline.map((item, index) => (
+            {timeline.map((item: any, index: number) => (
               <div
                 key={index}
                 className={`relative flex items-center mb-12 ${
@@ -204,7 +168,7 @@ export default function About() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-white mb-8">Areas of Interest</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {interests.map((interest, index) => (
+            {interests.map((interest: any, index: number) => (
               <div
                 key={index}
                 className="bg-[#112240]/80 backdrop-blur-md p-6 rounded-xl text-center shadow-lg border border-[#233554] hover:scale-105 transition-transform duration-300"

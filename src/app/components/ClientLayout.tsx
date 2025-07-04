@@ -4,6 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import useSWR from 'swr'
+
+const VISITOR_COUNT_URL = 'https://us-central1-atoms-portfolio.cloudfunctions.net/visitorCount';
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function ClientLayout({
   children,
@@ -25,8 +29,14 @@ export default function ClientLayout({
   }
 
   const isActive = (path: string) => {
-    return pathname === path
+    if (path === '/') {
+      return pathname === path
+    }
+    return pathname.startsWith(path)
   }
+
+  // Visitor count logic
+  const { data: visitorData, error: visitorError, isLoading: visitorLoading } = useSWR(VISITOR_COUNT_URL, fetcher, { revalidateOnFocus: false })
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -60,66 +70,33 @@ export default function ClientLayout({
 
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-8">
-                <Link 
-                  href="/" 
-                  className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                    isActive('/') 
-                      ? 'text-[#64ffda] after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-[#64ffda] after:animate-scale-in' 
-                      : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                  }`}
-                >
-                  Home
-                </Link>
-                <Link 
-                  href="/about" 
-                  className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                    isActive('/about') 
-                      ? 'text-[#64ffda] after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-[#64ffda] after:animate-scale-in' 
-                      : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                  }`}
-                >
-                  About
-                </Link>
-                <Link 
-                  href="/projects" 
-                  className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                    isActive('/projects') 
-                      ? 'text-[#64ffda] after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-[#64ffda] after:animate-scale-in' 
-                      : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                  }`}
-                >
-                  Projects
-                </Link>
-                <Link 
-                  href="/services" 
-                  className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                    isActive('/services') 
-                      ? 'text-[#64ffda] after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-[#64ffda] after:animate-scale-in' 
-                      : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                  }`}
-                >
-                  Services
-                </Link>
-                <Link 
-                  href="/blog" 
-                  className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                    isActive('/blog') 
-                      ? 'text-[#64ffda] after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-[#64ffda] after:animate-scale-in' 
-                      : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                  }`}
-                >
-                  Blog
-                </Link>
-                <Link 
-                  href="/contact" 
-                  className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                    isActive('/contact') 
-                      ? 'text-[#64ffda] after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-[#64ffda] after:animate-scale-in' 
-                      : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                  }`}
-                >
-                  Contact
-                </Link>
+                {[
+                  { href: '/', label: 'Home' },
+                  { href: '/about', label: 'About' },
+                  { href: '/projects', label: 'Projects' },
+                  { href: '/services', label: 'Services' },
+                  { href: '/blog', label: 'Blog' },
+                  { href: '/contact', label: 'Contact' },
+                ].map((item) => {
+                  const active = isActive(item.href)
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
+                        active ? 'text-[#64ffda] font-semibold' : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
+                      }`}
+                    >
+                      {item.label}
+                      <span
+                        className={`block absolute left-0 right-0 -bottom-1 h-[2px] bg-gradient-to-r from-[#64ffda] to-blue-400 rounded-full transition-all duration-300
+                          ${active ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}
+                        `}
+                        style={{ transformOrigin: 'left' }}
+                      />
+                    </Link>
+                  )
+                })}
               </div>
 
               {/* Mobile Menu Button */}
@@ -249,7 +226,12 @@ export default function ClientLayout({
                 </svg>
               </a>
             </div>
-            <p className="text-center text-gray-400 text-sm md:text-base">© {new Date().getFullYear()} Mohammed Shareef. All rights reserved.</p>
+            <p className="text-center text-gray-400 text-sm md:text-base">
+              © {new Date().getFullYear()} Mohammed Shareef. All rights reserved.
+            </p>
+            <div className="text-center mt-2 text-xs text-[#64ffda]">
+              {visitorLoading ? 'Loading visitors...' : visitorError ? 'Could not load visitor count.' : `👁️ ${visitorData?.count ?? 0} visitors`}
+            </div>
           </div>
         </div>
       </footer>

@@ -180,6 +180,10 @@
   .animate-glow {
     animation: glow 3s ease-in-out infinite;
   }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-in-out;
+  }
 }
 
 @keyframes textGradient {
@@ -202,6 +206,17 @@
   50% {
     filter: brightness(1.2) saturate(1.2);
     text-shadow: 0 0 10px rgba(100,255,218,0.5);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 }
 

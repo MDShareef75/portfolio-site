@@ -1,13 +1,15 @@
-'use client'
-
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { blogPosts, type BlogPost } from '../page'
+import { blogPosts } from '../data'
+import type { BlogPost } from '../data'
 
-export default function BlogPost() {
-  const params = useParams()
-  const post = blogPosts.find(post => post.id === Number(params.id))
+export function generateStaticParams() {
+  return blogPosts.map(post => ({ id: post.id.toString() }))
+}
+
+export default function BlogPost({ params }: { params: { id: string } }) {
+  const post = blogPosts.find(post => post.id.toString() === params.id)
 
   if (!post) {
     return (
