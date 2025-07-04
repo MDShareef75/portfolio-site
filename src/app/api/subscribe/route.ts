@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server'
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   const { email } = await request.json()
@@ -7,8 +10,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Email is required' }, { status: 400 })
   }
 
-  // In a real application, you would add the email to your mailing list (e.g., Mailchimp, ConvertKit)
-  console.log(`Email subscribed: ${email}`)
+  try {
+    await resend.emails.send({
+      from: 'onboarding@resend.dev', // IMPORTANT: Replace with your verified sending email
+      to: 'contact@atomsinnovation.com',
+      subject: 'New Subscriber to Your Blog',
+      html: `<p>A new user has subscribed with the email: <strong>${email}</strong></p>`
+    });
 
-  return NextResponse.json({ message: 'Subscribed successfully' })
+    return NextResponse.json({ message: 'Subscribed successfully' });
+  } catch (error) {
+    console.error('Resend error:', error);
+    // Don't expose the error to the client
+    return NextResponse.json({ message: 'Subscribed successfully' });
+  }
 } 
