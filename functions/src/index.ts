@@ -10,6 +10,7 @@
 import {setGlobalOptions} from "firebase-functions";
 import {onRequest} from "firebase-functions/https";
 import * as admin from 'firebase-admin';
+import * as logger from "firebase-functions/logger";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -40,8 +41,10 @@ export const visitorCount = onRequest(async (req, res) => {
   if (doc.exists) {
     count = (doc.data()?.count || 0) + 1;
     await docRef.update({ count });
+    logger.info(`Visitor count incremented to: ${count}`);
   } else {
     await docRef.set({ count });
+    logger.info(`Initial visitor count set to: ${count}`);
   }
   res.set('Access-Control-Allow-Origin', '*');
   res.json({ count });
