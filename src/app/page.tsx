@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Header Text */}
-      <div className="absolute top-0 left-0 right-0 pt-16 md:pt-20 pb-0 px-2 md:px-4 text-center z-20">
+      <div className="absolute top-0 left-0 right-0 pt-16 md:pt-20 pb-0 px-2 md:px-4 text-center z-20 pointer-events-none select-none">
         <div className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#112240]/30 backdrop-blur-md border border-[#233554]/50 hover:bg-[#112240]/40 transition-all duration-300 mb-8">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient tracking-wide">
             Atom&apos;s Innovation Hub
@@ -30,7 +30,7 @@ export default function Home() {
           </div>
           
           {/* Profile Image Container with enhanced glow */}
-          <div className="relative py-6 md:py-8 mt-16">
+          <div className="relative flex flex-col items-center py-6 md:py-8 mt-24 md:mt-16 lg:mt-16 z-10">
             <div className="absolute inset-[-10%] bg-gradient-to-r from-[#64ffda]/30 via-blue-500/30 to-purple-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
             <div className="relative z-10">
               <ProfileImage />
