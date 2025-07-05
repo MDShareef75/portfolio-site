@@ -49,8 +49,8 @@ export default function ClientLayout({
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/20 to-blue-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
                 <Image
-                  src="/images/Atom inteligence at core.png"
-                  alt="Atom Intelligence Logo"
+                  src="/images/atoms-innovation.png"
+                  alt="Atom Innovation Logo"
                   fill
                   className="object-cover rounded-[30%] group-hover:scale-105 transition-transform duration-500 relative z-10"
                   sizes="(max-width: 768px) 48px, 64px"
