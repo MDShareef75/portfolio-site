@@ -452,3 +452,14 @@ html {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+body, html, #__next, .no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+
+body, html, #__next {
+  -webkit-touch-callout: none;
+}
+

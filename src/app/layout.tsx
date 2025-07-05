@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import ClientLayout from './components/ClientLayout'
 import { ThemeProvider } from './context/ThemeContext'
+import BackToTopButton from './components/BackToTopButton'
+import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +24,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth dark">
+      <Head>
+        <title>Atom's Innovation Hub | Mohammed Shareef</title>
+        <meta name="description" content="Mohammed Shareef - Web & Mobile App Developer. Modern, clean, and innovative digital solutions for businesses and individuals." />
+        <meta property="og:title" content="Atom's Innovation Hub | Mohammed Shareef" />
+        <meta property="og:description" content="Web & Mobile App Developer. Modern, clean, and innovative digital solutions for businesses and individuals." />
+        <meta property="og:image" content="/images/IMG_0609.jpg" />
+        <meta property="og:url" content="https://atomsinnovation.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://atomsinnovation.com/" />
+      </Head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-[#0a192f] text-gray-100 relative overflow-x-hidden`}>
         {/* Enhanced animated background effects */}
         <div className="fixed inset-0 -z-10">
@@ -46,6 +58,7 @@ export default function RootLayout({
         <ThemeProvider>
           <ClientLayout inter={inter}>
             {children}
+            <BackToTopButton />
           </ClientLayout>
         </ThemeProvider>
       </body>

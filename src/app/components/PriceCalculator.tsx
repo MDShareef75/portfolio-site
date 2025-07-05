@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaEnvelope, FaRupeeSign, FaClock, FaListAlt, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 const PROJECT_TIERS = {
   'Web Development': [
@@ -81,164 +82,185 @@ export default function PriceCalculator() {
   const maxPrice = Math.round((selectedTier.max + featuresTotal) * deliveryMultiplier);
 
   return (
-    <div className="bg-[#112240]/80 rounded-2xl p-8 my-16 max-w-2xl mx-auto shadow-lg border border-[#233554]">
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Project Price Calculator</h2>
-      <form
-        onSubmit={async e => {
-          e.preventDefault();
-          setShowBreakdown(true);
-          setMailStatus('idle');
-          setMailMsg('');
-          // Send mail
-          try {
-            const res = await fetch('/api/price-calc', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email,
-                budget,
-                delivery,
-                projectType,
-                tier,
-                features: selectedFeatures,
-                minPrice,
-                maxPrice,
-              }),
-            });
-            const data = await res.json();
-            if (res.ok) {
-              setMailStatus('success');
-              setMailMsg('Thank you! Your request has been sent.');
-            } else {
+    <div className="relative bg-gradient-to-br from-[#0a192f]/80 via-[#233554]/80 to-[#112240]/80 rounded-2xl p-0 my-16 max-w-2xl mx-auto shadow-2xl border border-[#233554] overflow-hidden">
+      {/* Animated Gradient Header */}
+      <div className="p-8 pb-4 text-center bg-gradient-to-r from-[#64ffda]/40 via-blue-400/40 to-purple-500/40 backdrop-blur-md">
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Project Price Calculator</h2>
+        <p className="text-gray-300 text-base md:text-lg">Get a detailed estimate for your next project in seconds!</p>
+      </div>
+      <div className="p-8 pt-4">
+        <form
+          onSubmit={async e => {
+            e.preventDefault();
+            setShowBreakdown(true);
+            setMailStatus('idle');
+            setMailMsg('');
+            // Send mail
+            try {
+              const res = await fetch('/api/price-calc', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email,
+                  budget,
+                  delivery,
+                  projectType,
+                  tier,
+                  features: selectedFeatures,
+                  minPrice,
+                  maxPrice,
+                }),
+              });
+              const data = await res.json();
+              if (res.ok) {
+                setMailStatus('success');
+                setMailMsg('Thank you! Your request has been sent.');
+              } else {
+                setMailStatus('error');
+                setMailMsg(data.error || 'Failed to send mail.');
+              }
+            } catch (err) {
               setMailStatus('error');
-              setMailMsg(data.error || 'Failed to send mail.');
+              setMailMsg('Failed to send mail.');
             }
-          } catch (err) {
-            setMailStatus('error');
-            setMailMsg('Failed to send mail.');
-          }
-        }}
-        className="space-y-6"
-      >
-        <div>
-          <label className="block text-[#64ffda] mb-2">Your Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg bg-[#233554]/50 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent"
-            placeholder="your@email.com"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-[#64ffda] mb-2">Your Budget (₹)</label>
-          <input
-            type="number"
-            min="0"
-            value={budget}
-            onChange={e => setBudget(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg bg-[#233554]/50 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent"
-            placeholder="Enter your budget"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-[#64ffda] mb-2">Delivery Time</label>
-          <select
-            value={delivery}
-            onChange={e => setDelivery(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg bg-[#233554]/50 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent"
-          >
-            {DELIVERY_OPTIONS.map(opt => (
-              <option key={opt.label} value={opt.label}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#64ffda] mb-2">Type of Project</label>
-          <select
-            value={projectType}
-            onChange={e => {
-              setProjectType(e.target.value as ProjectType);
-              setTier(PROJECT_TIERS[e.target.value as ProjectType][0].label);
-            }}
-            className="w-full px-4 py-2 rounded-lg bg-[#233554]/50 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent"
-          >
-            {PROJECT_TYPES.map(opt => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#64ffda] mb-2">Project Tier</label>
-          <select
-            value={tier}
-            onChange={e => setTier(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg bg-[#233554]/50 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent"
-          >
-            {tiers.map((opt) => (
-              <option key={opt.label} value={opt.label}>{opt.label}{'note' in opt && opt.note ? ` (${opt.note})` : ''}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#64ffda] mb-2">Features</label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {FEATURES.map(f => (
-              <label key={f.label} className="flex items-center space-x-2 text-gray-300">
-                <input
-                  type="checkbox"
-                  checked={selectedFeatures.includes(f.label)}
-                  onChange={() => handleFeatureChange(f.label)}
-                  className="accent-[#64ffda]"
-                />
-                <span>{f.label} <span className="text-xs text-[#64ffda]">(+₹{f.price.toLocaleString()})</span></span>
-              </label>
-            ))}
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-gradient-to-r from-[#64ffda] to-blue-400 text-[#0a192f] hover:from-blue-400 hover:to-[#64ffda] transition-all duration-500 py-3 rounded-lg font-medium transform hover:scale-[1.02]"
+          }}
+          className="space-y-6 animate-fade-in"
         >
-          Calculate Price
-        </button>
-      </form>
-      {showBreakdown && (
-        <div className="mt-8 bg-[#0a192f]/70 p-6 rounded-xl border border-[#233554]">
-          <h3 className="text-xl font-bold mb-4 text-[#64ffda]">Detailed Price Breakdown</h3>
-          <ul className="mb-4 text-gray-300">
-            <li><strong>Base Price ({tier}):</strong> ₹{selectedTier.min.toLocaleString()} – ₹{selectedTier.max.toLocaleString()}</li>
-            {selectedFeatures.length > 0 && (
-              <li><strong>Features:</strong>
-                <ul className="ml-4 list-disc">
-                  {FEATURES.filter(f => selectedFeatures.includes(f.label)).map(f => (
-                    <li key={f.label}>{f.label}: ₹{f.price.toLocaleString()}</li>
-                  ))}
-                </ul>
-              </li>
-            )}
-            <li><strong>Delivery Time:</strong> {delivery} (x{deliveryMultiplier})</li>
-          </ul>
-          <div className="text-lg font-bold text-white mb-2">Estimated Price Range: <span className="text-[#64ffda]">₹{minPrice.toLocaleString()} – ₹{maxPrice.toLocaleString()}</span></div>
-          {budget && (
-            <div className={maxPrice > Number(budget) ? 'text-red-400' : 'text-green-400'}>
-              {maxPrice > Number(budget)
-                ? 'Estimated price may exceed your budget.'
-                : 'Estimated price is within your budget!'}
+          <div className="relative">
+            <label className="block text-[#64ffda] mb-2 font-medium">Your Email</label>
+            <div className="relative">
+              <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64ffda]" />
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#233554]/60 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all"
+                placeholder="your@email.com"
+                required
+              />
             </div>
-          )}
-          {mailStatus === 'success' && <div className="mt-4 text-green-400 font-semibold">{mailMsg}</div>}
-          {mailStatus === 'error' && <div className="mt-4 text-red-400 font-semibold">{mailMsg}</div>}
+          </div>
+          <div className="relative">
+            <label className="block text-[#64ffda] mb-2 font-medium">Your Budget (₹)</label>
+            <div className="relative">
+              <FaRupeeSign className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64ffda]" />
+              <input
+                type="number"
+                min="0"
+                value={budget}
+                onChange={e => setBudget(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#233554]/60 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all"
+                placeholder="Enter your budget"
+                required
+              />
+            </div>
+          </div>
+          <div className="relative">
+            <label className="block text-[#64ffda] mb-2 font-medium">Delivery Time</label>
+            <div className="relative">
+              <FaClock className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64ffda]" />
+              <select
+                value={delivery}
+                onChange={e => setDelivery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#233554]/60 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all"
+              >
+                {DELIVERY_OPTIONS.map(opt => (
+                  <option key={opt.label} value={opt.label}>{opt.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="relative">
+            <label className="block text-[#64ffda] mb-2 font-medium">Type of Project</label>
+            <div className="relative">
+              <FaListAlt className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64ffda]" />
+              <select
+                value={projectType}
+                onChange={e => {
+                  setProjectType(e.target.value as ProjectType);
+                  setTier(PROJECT_TIERS[e.target.value as ProjectType][0].label);
+                }}
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#233554]/60 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all"
+              >
+                {PROJECT_TYPES.map(opt => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="relative">
+            <label className="block text-[#64ffda] mb-2 font-medium">Project Tier</label>
+            <select
+              value={tier}
+              onChange={e => setTier(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg bg-[#233554]/60 border border-[#64ffda]/20 text-white focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all"
+            >
+              {tiers.map((opt) => (
+                <option key={opt.label} value={opt.label}>{opt.label}{'note' in opt && opt.note ? ` (${opt.note})` : ''}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-[#64ffda] mb-2 font-medium">Features</label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {FEATURES.map(f => (
+                <label key={f.label} className="flex items-center space-x-2 text-gray-300 cursor-pointer group transition-all">
+                  <input
+                    type="checkbox"
+                    checked={selectedFeatures.includes(f.label)}
+                    onChange={() => handleFeatureChange(f.label)}
+                    className="accent-[#64ffda] w-5 h-5 rounded border-2 border-[#64ffda] group-hover:scale-110 transition-transform"
+                  />
+                  <span className="flex items-center">
+                    <FaCheckCircle className={`mr-1 text-sm ${selectedFeatures.includes(f.label) ? 'text-[#64ffda]' : 'text-gray-500'}`} />
+                    {f.label} <span className="text-xs text-[#64ffda] ml-1">(+₹{f.price.toLocaleString()})</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
           <button
-            className="mt-4 px-6 py-2 bg-[#64ffda] text-[#0a192f] rounded-lg font-semibold hover:bg-blue-400 transition-all"
-            onClick={() => { setShowBreakdown(false); setMailStatus('idle'); setMailMsg(''); }}
+            type="submit"
+            className="w-full bg-gradient-to-r from-[#64ffda] to-blue-400 text-[#0a192f] hover:from-blue-400 hover:to-[#64ffda] transition-all duration-500 py-3 rounded-lg font-bold text-lg shadow-lg transform hover:scale-[1.02] mt-2 animate-fade-in"
           >
-            Try Again
+            Calculate Price
           </button>
-        </div>
-      )}
+        </form>
+        {showBreakdown && (
+          <div className="mt-10 bg-[#0a192f]/80 p-6 rounded-xl border border-[#233554] shadow-xl animate-fade-in">
+            <h3 className="text-2xl font-bold mb-4 text-[#64ffda] flex items-center"><FaRupeeSign className="mr-2" />Detailed Price Breakdown</h3>
+            <ul className="mb-4 text-gray-300 space-y-2">
+              <li><strong>Base Price ({tier}):</strong> <span className="text-[#64ffda]">₹{selectedTier.min.toLocaleString()} – ₹{selectedTier.max.toLocaleString()}</span></li>
+              {selectedFeatures.length > 0 && (
+                <li><strong>Features:</strong>
+                  <ul className="ml-4 list-disc">
+                    {FEATURES.filter(f => selectedFeatures.includes(f.label)).map(f => (
+                      <li key={f.label}><FaCheckCircle className="inline mr-1 text-[#64ffda]" />{f.label}: <span className="text-[#64ffda]">₹{f.price.toLocaleString()}</span></li>
+                    ))}
+                  </ul>
+                </li>
+              )}
+              <li><strong>Delivery Time:</strong> <span className="text-[#64ffda]">{delivery}</span> (x{deliveryMultiplier})</li>
+            </ul>
+            <div className="text-xl font-bold text-white mb-2 flex items-center"><FaRupeeSign className="mr-2" />Estimated Price Range: <span className="text-[#64ffda] ml-2">₹{minPrice.toLocaleString()} – ₹{maxPrice.toLocaleString()}</span></div>
+            {budget && (
+              <div className={`flex items-center ${maxPrice > Number(budget) ? 'text-red-400' : 'text-green-400'} font-semibold`}>
+                {maxPrice > Number(budget)
+                  ? (<><FaExclamationTriangle className="mr-2" />Estimated price may exceed your budget.</>)
+                  : (<><FaCheckCircle className="mr-2" />Estimated price is within your budget!</>)}
+              </div>
+            )}
+            {mailStatus === 'success' && <div className="mt-4 text-green-400 font-semibold animate-fade-in">{mailMsg}</div>}
+            {mailStatus === 'error' && <div className="mt-4 text-red-400 font-semibold animate-fade-in">{mailMsg}</div>}
+            <button
+              className="mt-6 px-6 py-2 bg-[#64ffda] text-[#0a192f] rounded-lg font-semibold hover:bg-blue-400 transition-all shadow-md"
+              onClick={() => { setShowBreakdown(false); setMailStatus('idle'); setMailMsg(''); }}
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 } 
