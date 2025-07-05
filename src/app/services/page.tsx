@@ -164,6 +164,58 @@ export default function Services() {
           ))}
         </div>
 
+        {/* Why Work With Me Section */}
+        <div className="max-w-4xl mx-auto mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Why Work With Me?</h2>
+          <ul className="space-y-4 text-lg text-gray-300 list-disc list-inside">
+            <li>5+ years of hands-on experience in web and mobile app development</li>
+            <li>Client-focused approach with a strong emphasis on communication</li>
+            <li>Proven track record of delivering projects on time and within budget</li>
+            <li>Expertise in modern technologies and best practices</li>
+            <li>Commitment to clean, maintainable, and scalable code</li>
+            <li>Continuous learning and adaptation to new trends</li>
+          </ul>
+        </div>
+
+        {/* Certifications & Awards Section */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Certifications & Awards</h2>
+          <ul className="space-y-4 text-lg text-gray-300 list-disc list-inside">
+            <li>Certified Flutter Developer – Google (2022)</li>
+            <li>React Professional Certification – Meta (2021)</li>
+            <li>Winner, Local Hackathon – Best Mobile App (2023)</li>
+            <li>Top Freelancer Award – Upwork (2022)</li>
+            {/* Add or edit your real certifications/awards here */}
+          </ul>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="max-w-4xl mx-auto mb-24">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xl font-semibold text-[#64ffda] mb-2">How do you determine project pricing?</h3>
+              <p className="text-gray-300">Pricing is based on project complexity, features, and timeline. After an initial consultation, I provide a detailed quote tailored to your needs.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-[#64ffda] mb-2">What is your typical project timeline?</h3>
+              <p className="text-gray-300">Most projects take 2–8 weeks depending on requirements. I always set clear milestones and keep you updated throughout the process.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-[#64ffda] mb-2">Do you offer post-launch support?</h3>
+              <p className="text-gray-300">Yes! I offer maintenance, updates, and support packages to ensure your product stays up-to-date and bug-free.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-[#64ffda] mb-2">Can you work with my existing team?</h3>
+              <p className="text-gray-300">Absolutely. I can collaborate with your in-house developers, designers, or other freelancers to deliver the best results.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-[#64ffda] mb-2">How do we get started?</h3>
+              <p className="text-gray-300">Just reach out via the contact form or WhatsApp. We'll schedule a call to discuss your project and next steps.</p>
+            </div>
+          </div>
+        </div>
+
         {/* Contact CTA */}
         <div className="text-center mt-16">
           <a
