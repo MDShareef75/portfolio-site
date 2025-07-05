@@ -15,14 +15,32 @@ function ContactForm() {
   })
 
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const subject = formData.subject || (serviceParam ? `Inquiry about ${serviceParam}` : `Contact from ${formData.name}`)
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\nMessage: ${formData.message}`
-    window.location.href = `mailto:contact@atomsinnovation.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    setSent(true)
+    setLoading(true)
+    setError('')
+    setSent(false)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setSent(true)
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        setError(data.error || 'Failed to send message.')
+      }
+    } catch (err) {
+      setError('Failed to send message.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -110,8 +128,9 @@ function ContactForm() {
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-[#64ffda] to-blue-400 text-[#0a192f] hover:from-blue-400 hover:to-[#64ffda] transition-all duration-500 py-3 rounded-lg font-medium transform hover:scale-[1.02]"
+                disabled={loading}
               >
-                Send Message
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
@@ -176,7 +195,10 @@ function ContactForm() {
           </div>
 
           {sent && (
-            <div className="mt-4 text-center text-green-400 font-semibold">Thank you! Your message has been prepared in your email client.</div>
+            <div className="mt-4 text-center text-green-400 font-semibold">Thank you! Your message has been sent.</div>
+          )}
+          {error && (
+            <div className="mt-4 text-center text-red-400 font-semibold">{error}</div>
           )}
         </div>
       </div>
