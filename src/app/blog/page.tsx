@@ -59,64 +59,25 @@ export default function Blog() {
   })
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <div className="container mx-auto px-4 py-16 relative">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0a192f] via-[#101a2f] to-[#1a223f]">
+      {/* Futuristic background glows */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-slow z-0"></div>
+      <div className="absolute bottom-0 right-0 w-[32vw] h-[32vw] bg-secondary/20 rounded-full blur-3xl animate-pulse-slow z-0"></div>
+      <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-16 mt-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">
-            Tech Blog
-          </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto bg-gradient-to-r from-blue-200 via-[#64ffda]/90 to-blue-200 text-transparent bg-clip-text animate-gradient">
-            Insights, tutorials, and thoughts on modern web and mobile development
-          </p>
+        <div className="text-center mb-16 mt-16 animate-fade-in">
+          <h1 className="text-5xl md:text-6xl font-bold pb-4 bg-gradient-to-r from-accent via-secondary to-purple-500 text-transparent bg-clip-text animate-gradient drop-shadow-[0_2px_24px_rgba(100,255,218,0.25)]">Blog</h1>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto bg-gradient-to-r from-secondary via-accent/90 to-secondary text-transparent bg-clip-text animate-gradient">Insights, tutorials, and stories from our team on web, mobile, and tech innovation.</p>
         </div>
-
-        {/* Search and Filter Section */}
-        <div className="max-w-4xl mx-auto mb-12">
-          {/* Search Bar */}
-          <div className="glassmorphism-card p-6 rounded-xl mb-8">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-12 py-3 bg-[#233554]/50 border border-[#64ffda]/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300"
-              />
-              <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full transition-all duration-500 transform hover:scale-105 ${
-                  activeCategory === category
-                    ? 'bg-gradient-to-r from-[#64ffda] to-blue-400 text-[#0a192f] font-semibold shadow-lg shadow-[#64ffda]/20'
-                    : 'bg-[#112240]/30 text-gray-300 hover:bg-[#112240]/50 hover:text-[#64ffda] border border-[#233554]/50'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {filteredPosts.map((post) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-8 max-w-7xl mx-auto">
+          {blogPosts.map((post) => (
             <article
               key={post.id}
-              className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.02]"
+              className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[#101a2f]/80 backdrop-blur-lg"
             >
               {/* Card Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
-
               {/* Post Image */}
               <div className="relative aspect-video">
                 <Image
@@ -132,7 +93,6 @@ export default function Blog() {
                   </span>
                 </div>
               </div>
-
               {/* Post Content */}
               <div className="relative p-6 z-10">
                 <div className="flex items-center text-sm text-gray-400 mb-3">
@@ -140,15 +100,12 @@ export default function Blog() {
                   <span className="mx-2">•</span>
                   <span>{post.readTime}</span>
                 </div>
-
                 <h2 className="text-xl font-bold mb-3 bg-gradient-to-r from-[#64ffda] via-blue-400 to-[#64ffda] text-transparent bg-clip-text group-hover:animate-gradient">
                   {post.title}
                 </h2>
-
                 <p className="text-gray-300 mb-4 line-clamp-3">
                   {post.excerpt}
                 </p>
-
                 <a
                   href={`/blog/${post.id}`}
                   className="inline-flex items-center text-[#64ffda] group-hover:text-blue-400 transition-colors duration-300"
@@ -159,13 +116,11 @@ export default function Blog() {
                   </svg>
                 </a>
               </div>
-
               {/* Hover Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
             </article>
           ))}
         </div>
-
         {/* No Posts Message */}
         {filteredPosts.length === 0 && (
           <div className="text-center py-16">
@@ -174,10 +129,9 @@ export default function Blog() {
             <p className="text-gray-400">Try adjusting your search criteria</p>
           </div>
         )}
-
         {/* Newsletter Signup */}
         <div className="max-w-4xl mx-auto mt-20">
-          <div className="bg-[#112240] p-8 rounded-2xl text-center shadow-lg">
+          <div className="bg-[#101a2f]/80 border border-accent/20 p-8 rounded-2xl text-center shadow-xl backdrop-blur-lg">
             <h3 className="text-2xl font-bold text-white mb-4">Stay Updated</h3>
             <p className="text-gray-300 mb-6">Subscribe to get notified about new articles and tutorials</p>
             {subscribed ? (

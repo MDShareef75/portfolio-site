@@ -26,7 +26,7 @@ Key topics:
 - Data fetching strategies
 
 By the end, you'll have a solid foundation for building with Next.js 13!`,
-    image: 'https://placehold.co/600x400/222/64ffda?text=Next.js+13',
+    image: '/images/nextjs_blog.png',
     category: 'Web Dev',
     tags: ['Next.js', 'React', 'Web Development'],
     author: 'Mohammed Shareef',
@@ -45,7 +45,7 @@ By the end, you'll have a solid foundation for building with Next.js 13!`,
 - Platform capabilities
 
 We'll also look at real-world use cases to help you decide which is best for your next mobile app project.`,
-    image: 'https://placehold.co/600x400/222/64ffda?text=Flutter+vs+React+Native',
+    image: '/images/fluttervsreactnative_blog.png',
     category: 'Mobile Dev',
     tags: ['Flutter', 'React Native', 'Mobile'],
     author: 'Mohammed Shareef',
@@ -64,7 +64,7 @@ We'll also look at real-world use cases to help you decide which is best for you
 - Deployment best practices
 
 You'll learn how to bring intelligent features to your apps with minimal effort.`,
-    image: 'https://placehold.co/600x400/222/64ffda?text=AI+Web+Apps',
+    image: '/images/aiwebapps_blog.png',
     category: 'AI/ML',
     tags: ['AI', 'Machine Learning', 'Web'],
     author: 'Mohammed Shareef',
@@ -82,7 +82,7 @@ You'll learn how to bring intelligent features to your apps with minimal effort.
 - Monitor your apps in production
 
 We'll cover tools and workflows that help you ship faster and with confidence.`,
-    image: 'https://placehold.co/600x400/222/64ffda?text=DevOps+CI%2FCD',
+    image: '/images/devopscicd_blog.png',
     category: 'DevOps',
     tags: ['DevOps', 'CI/CD', 'Automation'],
     author: 'Mohammed Shareef',
@@ -101,7 +101,7 @@ We'll cover tools and workflows that help you ship faster and with confidence.`,
 - Security
 
 Whether you're a beginner or a seasoned dev, these tips will help you build better Node.js applications.`,
-    image: 'https://placehold.co/600x400/222/64ffda?text=Node.js+Best+Practices',
+    image: '/images/nodejsbestpractices_blog.png',
     category: 'Web Dev',
     tags: ['Node.js', 'JavaScript', 'Backend'],
     author: 'Mohammed Shareef',

@@ -31,8 +31,11 @@ module.exports = {
         },
       },
       colors: {
-        background: '#0a192f',
+        background: '#0f172a',
+        surface: '#1e293b',
         accent: '#64ffda',
+        text: '#e2e8f0',
+        secondary: '#38bdf8',
       },
     },
   },

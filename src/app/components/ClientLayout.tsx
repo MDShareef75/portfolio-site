@@ -59,7 +59,7 @@ export default function ClientLayout({
               </Link>
 
               {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-8">
+              <div className="hidden md:flex items-center space-x-8 bg-[#101a2f]/70 backdrop-blur-lg border border-accent/10 shadow-lg rounded-2xl px-6 py-2">
                 {[
                   { href: '/', label: 'Home' },
                   { href: '/about', label: 'About' },
@@ -73,14 +73,18 @@ export default function ClientLayout({
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`relative px-2 py-1 text-gray-300 transition-all duration-500 text-sm lg:text-base ${
-                        active ? 'text-[#64ffda] font-semibold' : 'hover:text-[#64ffda] hover:translate-y-[-2px]'
-                      }`}
+                      className={`relative px-4 py-2 rounded-full transition-all duration-500 text-sm lg:text-base font-medium
+                        ${active
+                          ? 'bg-gradient-to-r from-accent to-secondary text-transparent bg-clip-text shadow-[0_2px_16px_rgba(100,255,218,0.25)]'
+                          : 'text-gray-300 hover:bg-accent/10 hover:text-accent hover:shadow-[0_2px_16px_rgba(100,255,218,0.10)]'}
+                      `}
                     >
                       {item.label}
                       <span
-                        className={`block absolute left-0 right-0 -bottom-1 h-[2px] bg-gradient-to-r from-[#64ffda] to-blue-400 rounded-full transition-all duration-300
-                          ${active ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}
+                        className={`block absolute left-2 right-2 -bottom-1 h-[3px] rounded-full transition-all duration-300
+                          ${active
+                            ? 'bg-gradient-to-r from-accent to-secondary shadow-[0_0_8px_2px_rgba(100,255,218,0.5)] opacity-100 scale-x-100'
+                            : 'bg-gradient-to-r from-accent to-secondary opacity-0 scale-x-0'}
                         `}
                         style={{ transformOrigin: 'left' }}
                       />
@@ -227,4 +231,4 @@ export default function ClientLayout({
       </footer>
     </div>
   )
-} 
+}

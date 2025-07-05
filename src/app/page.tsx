@@ -2,118 +2,80 @@
 
 import Link from 'next/link'
 import ProfileImage from './components/ProfileImage'
+import Carousel from './components/Carousel'
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Header Text */}
-      <div className="absolute top-0 left-0 right-0 pt-16 md:pt-20 pb-0 px-2 md:px-4 text-center z-20 pointer-events-none select-none">
-        <div className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#112240]/30 backdrop-blur-md border border-[#233554]/50 hover:bg-[#112240]/40 transition-all duration-300 mb-8">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient tracking-wide">
-            Atom&apos;s Innovation Hub
-          </h1>
+    <div className="overflow-x-hidden flex flex-col relative bg-gradient-to-b from-[#0a192f] via-[#0a1a2f] to-[#101a2f] pb-8 md:pb-12 xl:pb-20">
+      {/* Futuristic animated background glow behind headline and carousel */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vh] md:w-[60vw] md:h-[40vh] bg-gradient-to-br from-accent/30 via-secondary/20 to-surface/0 rounded-full blur-3xl opacity-70 pointer-events-none z-0 animate-pulse-slow"></div>
+      <div className="w-full flex flex-col items-center justify-center mt-16 md:mt-12 lg:mt-20 mb-2 md:mb-4 px-4 relative z-10">
+        {/* Animated glow behind company name */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[18vh] bg-gradient-to-r from-accent/30 via-secondary/20 to-surface/0 rounded-full blur-2xl opacity-80 pointer-events-none animate-pulse-slow"></div>
+        <h1 className="relative text-4xl md:text-5xl xl:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight text-center animate-fade-in mt-2 md:mt-4 xl:mt-0">
+          Atoms's Innovation
+        </h1>
+        <p className="relative mt-2 md:mt-4 mb-4 md:mb-8 xl:mb-12 text-sm md:text-lg xl:text-2xl text-gray-300 font-medium text-center animate-fade-in">
+          Building Digital Experiences for the Future
+        </p>
+      </div>
+
+      {/* Carousel and CTA side by side */}
+      <div className="w-full flex flex-col xl:flex-row items-center justify-center gap-6 md:gap-8 xl:gap-12 my-2 md:my-2 xl:my-4 mb-6 md:mb-10 xl:mb-16 relative z-10 max-w-screen-xl mx-auto px-2">
+        <div className="w-full xl:w-3/4 2xl:w-2/3 max-w-4xl flex items-center justify-center">
+          <Carousel />
+        </div>
+        <div className="w-full max-w-md flex flex-col items-center justify-center animate-fade-in delay-100">
+          <h2 className="text-xl md:text-2xl font-medium text-secondary mb-6 text-center">
+            We craft fast, modern websites and mobile apps that bring your ideas to life.
+          </h2>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="/contact"
+              className="px-8 py-3 rounded-full bg-gradient-to-r from-accent to-secondary text-[#0f172a] font-semibold shadow-lg hover:from-secondary hover:to-accent transition-all text-lg"
+            >
+              Let's Talk
+            </a>
+            <a
+              href="/projects"
+              className="px-8 py-3 rounded-full border-2 border-accent text-accent font-semibold bg-surface/80 hover:bg-surface/90 transition-all text-lg"
+            >
+              View Our Work
+            </a>
+          </div>
         </div>
       </div>
 
-      <section className="container mx-auto px-4 py-0 flex items-center justify-center min-h-[calc(100vh-4rem)] relative">
+      <section className="w-full px-0 py-0 flex flex-col items-center justify-center relative">
         <div className="text-center w-full max-w-3xl relative">
           {/* Additional colorful elements */}
-          <div className="absolute -top-40 -left-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow delay-500"></div>
+          <div className="absolute -top-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+          <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse-slow delay-500"></div>
           
           {/* Animated dots */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-0 w-2 h-2 bg-[#64ffda]/50 rounded-full animate-float"></div>
-            <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-blue-500/50 rounded-full animate-float delay-300"></div>
-            <div className="absolute bottom-1/4 left-1/4 w-2 h-2 bg-purple-500/50 rounded-full animate-float delay-700"></div>
-            <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-[#64ffda]/50 rounded-full animate-float delay-1000"></div>
+            <div className="absolute top-1/4 left-0 w-2 h-2 bg-accent/50 rounded-full animate-float"></div>
+            <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-secondary/50 rounded-full animate-float delay-300"></div>
+            <div className="absolute bottom-1/4 left-1/4 w-2 h-2 bg-accent/50 rounded-full animate-float delay-700"></div>
+            <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-secondary/50 rounded-full animate-float delay-1000"></div>
           </div>
-          
+
           {/* Profile Image Container with enhanced glow */}
-          <div className="relative flex flex-col items-center py-6 md:py-8 mt-24 md:mt-16 lg:mt-16 z-10">
-            <div className="absolute inset-[-10%] bg-gradient-to-r from-[#64ffda]/30 via-blue-500/30 to-purple-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
-            <div className="relative z-10">
-              <ProfileImage />
-            </div>
-          </div>
+          {/* Removed as per new design */}
 
           {/* Content Card with enhanced glassmorphism */}
-          <div className="glassmorphism-card p-6 md:p-8 rounded-2xl transform hover:scale-[1.02] transition-all duration-500 relative overflow-hidden group">
-            {/* Card background effects */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#64ffda]/5 via-blue-500/5 to-purple-500/5 animate-gradient-slow"></div>
-            <div className="absolute inset-0 bg-[url('/circuit-pattern.svg')] opacity-[0.03]"></div>
-            
-            {/* Card content */}
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 relative">
-                <span className="bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">
-                  Mohammed Shareef
-                </span>
-                <div className="absolute -inset-x-6 -inset-y-2 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </h2>
-              
-              <h3 className="text-xl md:text-2xl lg:text-3xl mb-4 md:mb-6 animate-fade-in">
-                <span className="bg-gradient-to-r from-blue-400 via-[#64ffda] to-blue-400 text-transparent bg-clip-text animate-gradient">
-                  Web & Mobile App Developer
-                </span>
-              </h3>
-              
-              <p className="text-base md:text-lg mb-6 md:mb-8 leading-relaxed max-w-2xl mx-auto animate-fade-in delay-200">
-                <span className="bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 text-transparent bg-clip-text animate-gradient">
-                  I design clean, modern websites and mobile applications for businesses and individuals.
-                  Bringing your vision to life with cutting-edge web and mobile technologies.
-                </span>
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center animate-fade-in delay-300">
-                <Link
-                  href="/contact"
-                  className="btn-primary group w-full sm:w-auto flex items-center justify-center text-sm md:text-base relative overflow-hidden"
-                >
-                  <span className="relative z-10 bg-gradient-to-r from-[#0a192f] to-[#112240] text-transparent bg-clip-text group-hover:from-[#112240] group-hover:to-[#0a192f] transition-all duration-300">
-                    Contact Me
-                  </span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/projects"
-                  className="btn-secondary group w-full sm:w-auto flex items-center justify-center text-sm md:text-base"
-                >
-                  <span className="bg-gradient-to-r from-[#64ffda] via-blue-400 to-[#64ffda] text-transparent bg-clip-text animate-gradient">
-                    View Projects
-                  </span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 ml-2 transform group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
+          {/* Removed card for modern, open layout */}
+          {/* Removed personal content block as requested */}
 
           {/* Enhanced floating tech icons */}
-          <div className="hidden md:block absolute top-0 left-0 w-full h-full pointer-events-none">
-            <div className="absolute top-1/4 left-0 animate-float delay-1000">
-              <div className="text-4xl opacity-30 animate-glow">⚛️</div>
-            </div>
-            <div className="absolute top-1/3 right-0 animate-float delay-2000">
-              <div className="text-4xl opacity-30 animate-glow">🚀</div>
-            </div>
-            <div className="absolute bottom-1/4 left-1/4 animate-float delay-3000">
-              <div className="text-4xl opacity-30 animate-glow">💻</div>
-            </div>
-            <div className="absolute bottom-1/3 right-1/4 animate-float delay-4000">
-              <div className="text-4xl opacity-30 animate-glow">🎨</div>
-            </div>
-          </div>
+          {/* Removed floating tech icon stickers as requested */}
         </div>
       </section>
 
       {/* Testimonials Section */}
       <section className="container mx-auto px-4 py-20 relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-accent via-secondary to-purple-500 text-transparent bg-clip-text animate-gradient">
             What Clients Say
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
@@ -122,64 +84,74 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-[#112240] p-6 rounded-xl shadow-lg">
-            <div className="flex items-center mb-4">
-              <div className="flex text-yellow-400">
-                {'★'.repeat(5)}
+          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[#101a2f]/80 backdrop-blur-lg">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
+            <div className="relative z-10 p-6">
+              <div className="flex items-center mb-4">
+                <div className="flex text-yellow-400">
+                  {'★'.repeat(5)}
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4 italic">
+                "Mohammed delivered an exceptional e-commerce solution that transformed our business operations. The app is intuitive, fast, and our customers love it!"
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                  K
+                </div>
+                <div>
+                  <div className="text-white font-medium">Kalpavruksha Hardware</div>
+                  <div className="text-gray-400 text-sm">E-commerce Client</div>
+                </div>
               </div>
             </div>
-            <p className="text-gray-300 mb-4 italic">
-              "Mohammed delivered an exceptional e-commerce solution that transformed our business operations. The app is intuitive, fast, and our customers love it!"
-            </p>
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
-                K
-              </div>
-              <div>
-                <div className="text-white font-medium">Kalpavruksha Hardware</div>
-                <div className="text-gray-400 text-sm">E-commerce Client</div>
-              </div>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </div>
-
-          <div className="bg-[#112240] p-6 rounded-xl shadow-lg">
-            <div className="flex items-center mb-4">
-              <div className="flex text-yellow-400">
-                {'★'.repeat(5)}
+          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[#101a2f]/80 backdrop-blur-lg">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
+            <div className="relative z-10 p-6">
+              <div className="flex items-center mb-4">
+                <div className="flex text-yellow-400">
+                  {'★'.repeat(5)}
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4 italic">
+                "Professional, reliable, and delivers high-quality work on time. Mohammed's attention to detail is impressive and the final product exceeded our expectations."
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                  S
+                </div>
+                <div>
+                  <div className="text-white font-medium">Sarah Johnson</div>
+                  <div className="text-gray-400 text-sm">Startup Founder</div>
+                </div>
               </div>
             </div>
-            <p className="text-gray-300 mb-4 italic">
-              "Professional, reliable, and delivers high-quality work on time. Mohammed's attention to detail is impressive and the final product exceeded our expectations."
-            </p>
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
-                S
-              </div>
-              <div>
-                <div className="text-white font-medium">Sarah Johnson</div>
-                <div className="text-gray-400 text-sm">Startup Founder</div>
-              </div>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </div>
-
-          <div className="bg-[#112240] p-6 rounded-xl shadow-lg">
-            <div className="flex items-center mb-4">
-              <div className="flex text-yellow-400">
-                {'★'.repeat(5)}
+          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[#101a2f]/80 backdrop-blur-lg">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
+            <div className="relative z-10 p-6">
+              <div className="flex items-center mb-4">
+                <div className="flex text-yellow-400">
+                  {'★'.repeat(5)}
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4 italic">
+                "The mobile app Mohammed developed for us has significantly improved our customer engagement. Great communication throughout the project!"
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                  M
+                </div>
+                <div>
+                  <div className="text-white font-medium">Mike Chen</div>
+                  <div className="text-gray-400 text-sm">Restaurant Owner</div>
+                </div>
               </div>
             </div>
-            <p className="text-gray-300 mb-4 italic">
-              "The mobile app Mohammed developed for us has significantly improved our customer engagement. Great communication throughout the project!"
-            </p>
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
-                M
-              </div>
-              <div>
-                <div className="text-white font-medium">Mike Chen</div>
-                <div className="text-gray-400 text-sm">Restaurant Owner</div>
-              </div>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           </div>
         </div>
       </section>
