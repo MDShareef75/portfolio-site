@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import PriceCalculator from '../components/PriceCalculator'
 
 const services = [
   {
@@ -177,18 +178,6 @@ export default function Services() {
           </ul>
         </div>
 
-        {/* Certifications & Awards Section */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Certifications & Awards</h2>
-          <ul className="space-y-4 text-lg text-gray-300 list-disc list-inside">
-            <li>Certified Flutter Developer – Google (2022)</li>
-            <li>React Professional Certification – Meta (2021)</li>
-            <li>Winner, Local Hackathon – Best Mobile App (2023)</li>
-            <li>Top Freelancer Award – Upwork (2022)</li>
-            {/* Add or edit your real certifications/awards here */}
-          </ul>
-        </div>
-
         {/* FAQ Section */}
         <div className="max-w-4xl mx-auto mb-24">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient">Frequently Asked Questions</h2>
@@ -215,6 +204,9 @@ export default function Services() {
             </div>
           </div>
         </div>
+
+        {/* Price Calculator Section */}
+        <PriceCalculator />
 
         {/* Contact CTA */}
         <div className="text-center mt-16">
