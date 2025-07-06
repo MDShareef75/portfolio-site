@@ -14,12 +14,47 @@ function ContactForm() {
     message: serviceParam ? `Hi, I'm interested in your ${serviceParam} service. Please provide more details about pricing and timeline.` : ''
   })
 
+  const [errors, setErrors] = useState<{[key: string]: string}>({})
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {}
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required'
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters'
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+    
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required'
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required'
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters'
+    }
+    
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!validateForm()) {
+      return
+    }
+    
     setLoading(true)
     setError('')
     setSent(false)
@@ -33,6 +68,7 @@ function ContactForm() {
       if (res.ok) {
         setSent(true)
         setFormData({ name: '', email: '', subject: '', message: '' })
+        setErrors({})
       } else {
         setError(data.error || 'Failed to send message.')
       }
@@ -82,10 +118,11 @@ function ContactForm() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#233554]/50 border border-[#64ffda]/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300"
+                    className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.name ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
                     placeholder="John Doe"
                     required
                   />
+                  {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
                 </div>
                 <div>
                   <label className="block text-[#64ffda] mb-2 text-sm">Email Address</label>
@@ -94,10 +131,11 @@ function ContactForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#233554]/50 border border-[#64ffda]/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300"
+                    className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.email ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
                     placeholder="john@example.com"
                     required
                   />
+                  {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
                 </div>
               </div>
               <div>
@@ -107,10 +145,11 @@ function ContactForm() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-[#233554]/50 border border-[#64ffda]/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300"
+                  className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.subject ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
                   placeholder="Project Discussion"
                   required
                 />
+                {errors.subject && <p className="text-red-400 text-sm mt-1">{errors.subject}</p>}
               </div>
               <div>
                 <label className="block text-[#64ffda] mb-2 text-sm">Message</label>
@@ -118,10 +157,11 @@ function ContactForm() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-[#233554]/50 border border-[#64ffda]/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300 min-h-[150px]"
+                  className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.message ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300 min-h-[150px]`}
                   placeholder="Tell me about your project..."
                   required
                 ></textarea>
+                {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
               </div>
               <button
                 type="submit"

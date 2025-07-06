@@ -1,20 +1,54 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import ClientLayout from './components/ClientLayout'
 import { ThemeProvider } from './context/ThemeContext'
 import BackToTopButton from './components/BackToTopButton'
-import Head from 'next/head'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Atom's Innovation Hub",
-  description: 'Full-stack developer specializing in modern web technologies, AI, and embedded systems',
-  icons: {
-    icon: '/images/Atom inteligence at core.png',
-    apple: '/images/Atom inteligence at core.png',
+  metadataBase: new URL('https://atomsinnovation.com'),
+  title: "Atom's Innovation Hub | Mohammed Shareef",
+  description: 'Mohammed Shareef - Full-stack developer specializing in modern web technologies, AI, and embedded systems. Building digital experiences for the future.',
+  keywords: 'web development, mobile development, React, Next.js, Flutter, full-stack developer, AI, embedded systems',
+  authors: [{ name: 'Mohammed Shareef' }],
+  creator: 'Mohammed Shareef',
+  publisher: "Atom's Innovation Hub",
+  robots: 'index, follow',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://atomsinnovation.com/',
+    title: "Atom's Innovation Hub | Mohammed Shareef",
+    description: 'Full-stack developer specializing in modern web technologies, AI, and embedded systems',
+    siteName: "Atom's Innovation Hub",
+    images: [
+      {
+        url: '/images/IMG_0609.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Mohammed Shareef - Full Stack Developer',
+      },
+    ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Atom's Innovation Hub | Mohammed Shareef",
+    description: 'Full-stack developer specializing in modern web technologies, AI, and embedded systems',
+    images: ['/images/IMG_0609.jpg'],
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0a192f',
 }
 
 export default function RootLayout({
@@ -24,16 +58,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth dark">
-      <Head>
-        <title>Atom's Innovation Hub | Mohammed Shareef</title>
-        <meta name="description" content="Mohammed Shareef - Web & Mobile App Developer. Modern, clean, and innovative digital solutions for businesses and individuals." />
-        <meta property="og:title" content="Atom's Innovation Hub | Mohammed Shareef" />
-        <meta property="og:description" content="Web & Mobile App Developer. Modern, clean, and innovative digital solutions for businesses and individuals." />
-        <meta property="og:image" content="/images/IMG_0609.jpg" />
-        <meta property="og:url" content="https://atomsinnovation.com/" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://atomsinnovation.com/" />
-      </Head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-[#0a192f] text-gray-100 relative overflow-x-hidden`}>
         {/* Enhanced animated background effects */}
         <div className="fixed inset-0 -z-10">

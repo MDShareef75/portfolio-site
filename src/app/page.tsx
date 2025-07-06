@@ -13,7 +13,7 @@ export default function Home() {
         {/* Animated glow behind company name */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[18vh] bg-gradient-to-r from-accent/30 via-secondary/20 to-surface/0 rounded-full blur-2xl opacity-80 pointer-events-none animate-pulse-slow"></div>
         <h1 className="relative text-4xl md:text-5xl xl:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight text-center animate-fade-in mt-2 md:mt-4 xl:mt-0">
-          Atoms's Innovation
+          Atom's Innovation
         </h1>
         <p className="relative mt-2 md:mt-4 mb-4 md:mb-8 xl:mb-12 text-sm md:text-lg xl:text-2xl text-gray-300 font-medium text-center animate-fade-in">
           Building Digital Experiences for the Future
