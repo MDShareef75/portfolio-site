@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   creator: 'Mohammed Shareef',
   publisher: "Atom's Innovation Hub",
   robots: 'index, follow',
+  verification: {
+    google: 'k1OIAG63mVye_lJcawPxCP5oL-US6TcdkqLo2qm-6vM',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
