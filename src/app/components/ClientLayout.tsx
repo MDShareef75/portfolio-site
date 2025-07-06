@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import VisitorCounter from './VisitorCounter'
+import ThemeToggle from './ThemeToggle'
+import { useTheme } from '../context/ThemeContext'
 
 export default function ClientLayout({
   children,
@@ -16,6 +18,7 @@ export default function ClientLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+  const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true)
@@ -93,93 +96,56 @@ export default function ClientLayout({
                 })}
               </div>
 
-              {/* Mobile Menu Button */}
-              <div className="md:hidden">
-                <button 
-                  className="text-gray-300 hover:text-[#64ffda] transition-all duration-500 p-2 hover:bg-[#233554]/30 rounded-lg"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    {mobileMenuOpen ? (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    ) : (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    )}
-                  </svg>
-                </button>
+              {/* Theme Toggle and Mobile Menu */}
+              <div className="flex items-center space-x-2">
+                <ThemeToggle />
+                {/* Mobile Menu Button */}
+                <div className="md:hidden">
+                  <button 
+                    className="text-gray-300 hover:text-[#64ffda] transition-all duration-500 p-2 hover:bg-[#233554]/30 rounded-lg"
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      {mobileMenuOpen ? (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      ) : (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                      )}
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-              <div className="md:hidden mt-2 pb-4 border-t border-[#233554]/50 animate-fade-in">
+              <div className={`md:hidden mt-2 pb-4 border-t border-[#233554]/50 animate-fade-in 
+                ${theme === 'light' ? 'bg-[#e9eef3]/95' : ''}`}>
                 <div className="flex flex-col space-y-2 pt-4">
-                  <Link 
-                    href="/" 
-                    className={`text-gray-300 transition-all duration-500 py-3 px-4 rounded-lg text-sm ${
-                      isActive('/') 
-                        ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' 
-                        : 'hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Home
-                  </Link>
-                  <Link 
-                    href="/about" 
-                    className={`text-gray-300 transition-all duration-500 py-3 px-4 rounded-lg text-sm ${
-                      isActive('/about') 
-                        ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' 
-                        : 'hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                  <Link 
-                    href="/projects" 
-                    className={`text-gray-300 transition-all duration-500 py-3 px-4 rounded-lg text-sm ${
-                      isActive('/projects') 
-                        ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' 
-                        : 'hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Projects
-                  </Link>
-                  <Link 
-                    href="/services" 
-                    className={`text-gray-300 transition-all duration-500 py-3 px-4 rounded-lg text-sm ${
-                      isActive('/services') 
-                        ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' 
-                        : 'hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Services
-                  </Link>
-                  <Link 
-                    href="/blog" 
-                    className={`text-gray-300 transition-all duration-500 py-3 px-4 rounded-lg text-sm ${
-                      isActive('/blog') 
-                        ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' 
-                        : 'hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Blog
-                  </Link>
-                  <Link 
-                    href="/contact" 
-                    className={`text-gray-300 transition-all duration-500 py-3 px-4 rounded-lg text-sm ${
-                      isActive('/contact') 
-                        ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' 
-                        : 'hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
+                  {[
+                    { href: '/', label: 'Home' },
+                    { href: '/about', label: 'About' },
+                    { href: '/projects', label: 'Projects' },
+                    { href: '/services', label: 'Services' },
+                    { href: '/blog', label: 'Blog' },
+                    { href: '/contact', label: 'Contact' },
+                  ].map((item) => {
+                    const active = isActive(item.href)
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`transition-all duration-500 py-3 px-4 rounded-lg text-sm 
+                          ${theme === 'light'
+                            ? `${active ? 'bg-[var(--accent)]/10 text-[#274690] border-l-2 border-[var(--accent)] translate-x-2' : 'text-[#274690] hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:translate-x-2'}`
+                            : `${active ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' : 'text-gray-300 hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'}`
+                          }`}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  })}
                 </div>
               </div>
             )}
@@ -193,8 +159,10 @@ export default function ClientLayout({
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-[#233554]/50">
-        <div className="glassmorphism py-6 md:py-8">
+      <footer className="relative z-10 border-t border-[#233554]/50 overflow-visible pt-16">
+        {/* Decorative Orb */}
+        <div className="absolute left-1/2 -top-12 -translate-x-1/2 w-32 h-16 md:w-48 md:h-24 bg-gradient-to-tr from-[#64ffda] via-blue-400 to-purple-500 rounded-b-full blur-2xl opacity-80 pointer-events-none z-0" />
+        <div className="glassmorphism py-6 md:py-8 relative z-10">
           <div className="container mx-auto px-4">
             <div className="flex justify-center space-x-6 mb-4">
               <a 

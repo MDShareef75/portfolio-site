@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useTheme } from '../context/ThemeContext'
 
 function ContactForm() {
   const searchParams = useSearchParams()
@@ -18,6 +19,9 @@ function ContactForm() {
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { theme } = useTheme();
+  const [showToast, setShowToast] = useState(false)
+  const toastTimeout = useRef<NodeJS.Timeout | null>(null)
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {}
@@ -69,6 +73,9 @@ function ContactForm() {
         setSent(true)
         setFormData({ name: '', email: '', subject: '', message: '' })
         setErrors({})
+        setShowToast(true)
+        if (toastTimeout.current) clearTimeout(toastTimeout.current)
+        toastTimeout.current = setTimeout(() => setShowToast(false), 4000)
       } else {
         setError(data.error || 'Failed to send message.')
       }
@@ -88,7 +95,7 @@ function ContactForm() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0a192f] via-[#101a2f] to-[#1a223f]">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[var(--background)] via-[var(--surface)] to-[var(--background)]">
       {/* Futuristic background glows */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-slow z-0"></div>
       <div className="absolute bottom-0 right-0 w-[32vw] h-[32vw] bg-secondary/20 rounded-full blur-3xl animate-pulse-slow z-0"></div>
@@ -98,40 +105,48 @@ function ContactForm() {
           <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient drop-shadow-[0_2px_24px_rgba(100,255,218,0.25)]">
             Get in Touch
           </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto bg-gradient-to-r from-blue-200 via-[#64ffda]/90 to-blue-200 text-transparent bg-clip-text animate-gradient">
-            Let&apos;s discuss your next project and bring your ideas to life
+          <p className={`text-xl md:text-2xl max-w-3xl mx-auto mt-2 text-center transition-colors duration-500 ${theme === 'light' ? 'text-[#1e293b]' : 'text-[#cbd5e1]'}`}>
+            Reach out and let&apos;s start a conversation about your goals, ideas, or next big thing!
           </p>
         </div>
         {/* Contact Form Section */}
         <div className="max-w-4xl mx-auto">
-          <div className="p-8 md:p-12 rounded-2xl relative overflow-hidden group bg-[#101a2f]/80 border border-accent/20 shadow-xl backdrop-blur-lg">
+          <div
+            className={`p-8 md:p-12 rounded-2xl relative overflow-hidden group shadow-xl backdrop-blur-lg border transition-colors duration-500 
+              ${theme === 'light' ? 'bg-[#c8d6e5] border-[var(--accent)]/40' : 'bg-[#101a2f] border-[#233554]'}`}
+          >
             {/* Background Effects */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-90 transition-colors duration-500 
+              ${theme === 'light' ? 'from-[#c8d6e5] via-[#e9eef3] to-[#f4f7fa]' : 'from-[#101a2f] via-[#101a2f] to-[#0a192f]'}`}></div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             {/* Form Content */}
             <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[#64ffda] mb-2 text-sm">Your Name</label>
+                  <label className={`block mb-2 text-sm font-semibold transition-colors duration-500 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`}>Your Name</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.name ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300
+                      ${theme === 'light' ? 'bg-white border-[var(--accent)]/40 text-[var(--text)] placeholder-[var(--text-secondary)]' : 'bg-[#112240] border-[var(--accent)]/20 text-[#f1f5f9] placeholder-gray-400'}
+                      ${errors.name ? 'border-red-500' : ''}`}
                     placeholder="John Doe"
                     required
                   />
                   {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
                 </div>
                 <div>
-                  <label className="block text-[#64ffda] mb-2 text-sm">Email Address</label>
+                  <label className={`block mb-2 text-sm font-semibold transition-colors duration-500 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`}>Email Address</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.email ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300
+                      ${theme === 'light' ? 'bg-white border-[var(--accent)]/40 text-[var(--text)] placeholder-[var(--text-secondary)]' : 'bg-[#112240] border-[var(--accent)]/20 text-[#f1f5f9] placeholder-gray-400'}
+                      ${errors.email ? 'border-red-500' : ''}`}
                     placeholder="john@example.com"
                     required
                   />
@@ -139,25 +154,29 @@ function ContactForm() {
                 </div>
               </div>
               <div>
-                <label className="block text-[#64ffda] mb-2 text-sm">Subject</label>
+                <label className={`block mb-2 text-sm font-semibold transition-colors duration-500 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`}>Subject</label>
                 <input
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.subject ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300
+                    ${theme === 'light' ? 'bg-white border-[var(--accent)]/40 text-[var(--text)] placeholder-[var(--text-secondary)]' : 'bg-[#112240] border-[var(--accent)]/20 text-[#f1f5f9] placeholder-gray-400'}
+                    ${errors.subject ? 'border-red-500' : ''}`}
                   placeholder="Project Discussion"
                   required
                 />
                 {errors.subject && <p className="text-red-400 text-sm mt-1">{errors.subject}</p>}
               </div>
               <div>
-                <label className="block text-[#64ffda] mb-2 text-sm">Message</label>
+                <label className={`block mb-2 text-sm font-semibold transition-colors duration-500 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`}>Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-[#233554]/50 border ${errors.message ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300 min-h-[150px]`}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300 min-h-[150px]
+                    ${theme === 'light' ? 'bg-white border-[var(--accent)]/40 text-[var(--text)] placeholder-[var(--text-secondary)]' : 'bg-[#112240] border-[var(--accent)]/20 text-[#f1f5f9] placeholder-gray-400'}
+                    ${errors.message ? 'border-red-500' : ''}`}
                   placeholder="Tell me about your project..."
                   required
                 ></textarea>
@@ -165,7 +184,7 @@ function ContactForm() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#64ffda] to-blue-400 text-[#0a192f] hover:from-blue-400 hover:to-[#64ffda] transition-all duration-500 py-3 rounded-lg font-medium transform hover:scale-[1.02]"
+                className="w-full bg-gradient-to-r from-[var(--accent)] to-blue-400 text-[var(--background)] hover:from-blue-400 hover:to-[var(--accent)] transition-all duration-500 py-3 rounded-lg font-medium transform hover:scale-[1.02]"
                 disabled={loading}
               >
                 {loading ? 'Sending...' : 'Send Message'}
@@ -174,75 +193,51 @@ function ContactForm() {
           </div>
           {/* Contact Info */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center group bg-[#101a2f]/80 border border-accent/20 rounded-2xl shadow-lg p-6 backdrop-blur-lg">
-              <div className="inline-block p-4 rounded-full bg-[#233554]/50 border border-[#64ffda]/20 mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 text-[#64ffda]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+            {[
+              {
+                icon: (
+                  <svg className={`w-6 h-6 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                ),
+                title: 'Email',
+                value: <a href="mailto:contact@atomsinnovation.com" className={`mt-2 block transition-colors duration-300 ${theme === 'light' ? 'text-[var(--text)] hover:text-[var(--accent)]' : 'text-[var(--text-secondary)] hover:text-[var(--accent)]'}`}>contact@atomsinnovation.com</a>
+              },
+              {
+                icon: (
+                  <svg className={`w-6 h-6 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                ),
+                title: 'Phone',
+                value: <a href="tel:+919945546164" className={`mt-2 block transition-colors duration-300 ${theme === 'light' ? 'text-[var(--text)] hover:text-[var(--accent)]' : 'text-[var(--text-secondary)] hover:text-[var(--accent)]'}`}>+91 9945546164</a>
+              },
+              {
+                icon: (
+                  <svg className={`w-6 h-6 ${theme === 'light' ? 'text-[#274690]' : 'text-[#64ffda]'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                ),
+                title: 'Working Hours',
+                value: <><p className={`mt-2 ${theme === 'light' ? 'text-[var(--text)]' : 'text-[var(--text-secondary)]'}`}>Monday - Saturday</p><p className={`${theme === 'light' ? 'text-[var(--text)]' : 'text-[var(--text-secondary)]'}`}>9:00 AM - 6:00 PM IST</p></>
+              }
+            ].map((info) => (
+              <div key={info.title} className={`text-center group rounded-2xl shadow-lg p-6 backdrop-blur-lg border transition-colors duration-500 
+                ${theme === 'light' ? 'bg-[#c8d6e5] border-[var(--accent)]/40' : 'bg-[#101a2f] border-[#233554]'}`}>
+                <div className="inline-block p-4 rounded-full bg-[var(--surface)]/50 border border-[var(--accent)]/20 mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {info.icon}
+                </div>
+                <h3 className={`text-lg font-semibold bg-gradient-to-r text-transparent bg-clip-text animate-gradient mb-1 
+                  ${theme === 'light' ? 'from-[#274690] to-blue-400' : 'from-[#64ffda] to-blue-400'}`}>{info.title}</h3>
+                {info.value}
               </div>
-              <h3 className="text-lg font-semibold bg-gradient-to-r from-[#64ffda] to-blue-400 text-transparent bg-clip-text">Email</h3>
-              <a 
-                href="mailto:contact@atomsinnovation.com" 
-                className="text-gray-300 mt-2 hover:text-[#64ffda] transition-colors duration-300 block"
-              >
-                contact@atomsinnovation.com
-              </a>
-            </div>
-            <div className="text-center group bg-[#101a2f]/80 border border-accent/20 rounded-2xl shadow-lg p-6 backdrop-blur-lg">
-              <div className="inline-block p-4 rounded-full bg-[#233554]/50 border border-[#64ffda]/20 mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 text-[#64ffda]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold bg-gradient-to-r from-[#64ffda] to-blue-400 text-transparent bg-clip-text">Phone</h3>
-              <a 
-                href="tel:+919945546164" 
-                className="text-gray-300 mt-2 hover:text-[#64ffda] transition-colors duration-300 block"
-              >
-                +91 9945546164
-              </a>
-            </div>
-            <div className="text-center group bg-[#101a2f]/80 border border-accent/20 rounded-2xl shadow-lg p-6 backdrop-blur-lg">
-              <div className="inline-block p-4 rounded-full bg-[#233554]/50 border border-[#64ffda]/20 mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 text-[#64ffda]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold bg-gradient-to-r from-[#64ffda] to-blue-400 text-transparent bg-clip-text">Working Hours</h3>
-              <p className="text-gray-300 mt-2">Monday - Saturday</p>
-              <p className="text-gray-300">9:00 AM - 6:00 PM IST</p>
-            </div>
+            ))}
           </div>
-          {/* WhatsApp Button */}
-          <div className="mt-12 text-center">
-            <a
-              href="https://wa.me/919945546164"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-xl"
-            >
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-              </svg>
-              Chat on WhatsApp
-            </a>
-          </div>
-          {sent && (
-            <div className="mt-4 text-center text-green-400 font-semibold">Thank you! Your message has been sent.</div>
-          )}
-          {error && (
-            <div className="mt-4 text-center text-red-400 font-semibold">{error}</div>
-          )}
         </div>
       </div>
+      {/* Toast Message */}
+      {showToast && (
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-[9999] bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-fade-in">
+          <span>Thank you! Your message has been sent.</span>
+          <button onClick={() => setShowToast(false)} className="ml-2 text-white hover:text-green-200 focus:outline-none">&times;</button>
+        </div>
+      )}
     </div>
   )
 }
 
-export default function Contact() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ContactForm />
-    </Suspense>
-  )
-} 
+export default ContactForm
