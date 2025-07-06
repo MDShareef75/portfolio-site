@@ -93,35 +93,75 @@ export default function Projects() {
             </div>
           </div>
           {/* Filter Buttons below search bar */}
-          <div className="flex flex-wrap gap-2 items-center justify-start">
-            {/* Category Filter */}
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-3 py-2 rounded-full transition-all duration-300 text-sm ${
-                  activeCategory === category
-                    ? 'bg-[var(--accent)] text-[var(--background)] font-semibold shadow-lg'
-                    : 'bg-[var(--surface)]/50 text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--accent)] border border-[var(--accent)]/20'
-                }`}
+          {/* Mobile Dropdowns */}
+          <div className="flex flex-col gap-4 sm:hidden w-full mb-4">
+            <div className="flex flex-row items-center gap-2 w-full">
+              <label className={`w-24 text-sm font-semibold tracking-wide whitespace-nowrap transition-colors duration-300 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>Category</label>
+              <select
+                value={activeCategory}
+                onChange={e => setActiveCategory(e.target.value)}
+                className={`flex-1 px-4 py-3 rounded-lg border text-base focus:ring-2 focus:border-transparent transition-colors duration-300
+                  ${theme === 'light'
+                    ? 'bg-white border-[var(--accent)]/30 text-[var(--text)] focus:ring-[var(--accent)]'
+                    : 'bg-[#112240] border-[var(--accent)]/30 text-white focus:ring-[var(--accent)]'}
+                `}
               >
-                {category}
-              </button>
-            ))}
-            {/* Type Filter */}
-            {types.map(type => (
-              <button
-                key={type}
-                onClick={() => setActiveType(type)}
-                className={`px-3 py-2 rounded-full transition-all duration-300 text-sm ${
-                  activeType === type
-                    ? 'bg-blue-500 text-[var(--text)] font-semibold shadow-lg'
-                    : 'bg-[var(--surface)]/50 text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-blue-400 border border-blue-400/20'
-                }`}
+                {categories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-row items-center gap-2 w-full">
+              <label className={`w-24 text-sm font-semibold tracking-wide whitespace-nowrap transition-colors duration-300 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>Type</label>
+              <select
+                value={activeType}
+                onChange={e => setActiveType(e.target.value)}
+                className={`flex-1 px-4 py-3 rounded-lg border text-base focus:ring-2 focus:border-transparent transition-colors duration-300
+                  ${theme === 'light'
+                    ? 'bg-white border-blue-400/30 text-[var(--text)] focus:ring-blue-400'
+                    : 'bg-[#112240] border-blue-400/30 text-white focus:ring-blue-400'}
+                `}
               >
-                {type}
-              </button>
-            ))}
+                {types.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {/* Desktop Filter Buttons */}
+          <div className="hidden sm:flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center w-full">
+            {/* Category Filter (left) */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`px-3 py-2 rounded-full transition-all duration-300 text-sm ${
+                    activeCategory === category
+                      ? 'bg-[var(--accent)] text-[var(--background)] font-semibold shadow-lg'
+                      : 'bg-[var(--surface)]/50 text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--accent)] border border-[var(--accent)]/20'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            {/* Type Filter (right) */}
+            <div className="flex flex-wrap gap-2 justify-end">
+              {types.map(type => (
+                <button
+                  key={type}
+                  onClick={() => setActiveType(type)}
+                  className={`px-3 py-2 rounded-full transition-all duration-300 text-sm ${
+                    activeType === type
+                      ? 'bg-blue-500 text-[var(--text)] font-semibold shadow-lg'
+                      : 'bg-[var(--surface)]/50 text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-blue-400 border border-blue-400/20'
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FaEnvelope, FaRupeeSign, FaClock, FaListAlt, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 const PROJECT_TIERS = {
@@ -62,6 +62,13 @@ export default function PriceCalculator() {
   const [email, setEmail] = useState('');
   const [mailStatus, setMailStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [mailMsg, setMailMsg] = useState('');
+  const selectAllRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = selectedFeatures.length > 0 && selectedFeatures.length < FEATURES.length;
+    }
+  }, [selectedFeatures]);
 
   const handleFeatureChange = (feature: string) => {
     setSelectedFeatures((prev) =>
@@ -202,6 +209,23 @@ export default function PriceCalculator() {
           </div>
           <div>
             <label className="block text-[#64ffda] mb-2 font-medium">Features</label>
+            {/* Select All Checkbox */}
+            <div className="mb-2 flex items-center space-x-2">
+              <input
+                ref={selectAllRef}
+                type="checkbox"
+                checked={selectedFeatures.length === FEATURES.length}
+                onChange={e => {
+                  if (selectedFeatures.length === FEATURES.length) {
+                    setSelectedFeatures([]);
+                  } else {
+                    setSelectedFeatures(FEATURES.map(f => f.label));
+                  }
+                }}
+                className="accent-[#64ffda] w-5 h-5 rounded border-2 border-[#64ffda] transition-transform"
+              />
+              <span className="text-gray-200 font-semibold select-none">Select All</span>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {FEATURES.map(f => (
                 <label key={f.label} className="flex items-center space-x-2 text-gray-300 cursor-pointer group transition-all">

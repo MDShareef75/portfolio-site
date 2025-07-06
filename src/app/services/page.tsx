@@ -126,7 +126,7 @@ export default function Services() {
                   {service.features.map((feature, index) => (
                     <li
                       key={index}
-                      className={`flex items-center transition-colors duration-300 ${theme === 'light' ? 'text-[#0891b2] group-hover:text-[#2260a9]' : 'text-gray-300 group-hover:text-[#64ffda]'}`}>
+                      className={`flex items-center transition-colors duration-300 ${theme === 'light' ? 'text-[#0891b2]' : 'text-gray-300'}`}>
                       <svg
                         className={`w-5 h-5 mr-3 ${theme === 'light' ? 'text-[#0891b2]' : 'text-[#64ffda]'}`}
                         fill="none"
@@ -146,12 +146,12 @@ export default function Services() {
                 </ul>
                 {/* Pricing Section */}
                 <div className="mt-8">
-                  <h4 className="text-xl font-bold text-center text-[#64ffda] mb-6">Pricing Tiers</h4>
+                  <h4 className={`text-xl font-bold text-center mb-6 transition-colors duration-300 ${theme === 'light' ? 'text-[#0891b2]' : 'text-[#64ffda]'}`}>Pricing Tiers</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
                     {service.pricing.map((priceTier, index) => (
                       <div key={index} className="bg-[var(--background)]/50 p-4 rounded-lg border border-[var(--surface)] transform transition-transform duration-300 hover:scale-105 hover:border-[var(--accent)]/50">
-                        <p className={`font-semibold transition-colors duration-500 ${theme === 'light' ? 'text-[#475569] group-hover:text-[#2260a9]' : 'text-gray-300 group-hover:text-[#64ffda]'}`}>{priceTier.tier}</p>
-                        <p className={`text-lg font-bold transition-colors duration-500 ${theme === 'light' ? 'text-[#0891b2] group-hover:text-[#2260a9]' : 'text-[#64ffda] group-hover:text-[#2260a9]'}`}>{priceTier.range}</p>
+                        <p className={`font-semibold transition-colors duration-500 ${theme === 'light' ? 'text-[#475569]' : 'text-gray-300'}`}>{priceTier.tier}</p>
+                        <p className={`text-lg font-bold transition-colors duration-500 ${theme === 'light' ? 'text-[#0891b2]' : 'text-[#64ffda]'}`}>{priceTier.range}</p>
                       </div>
                     ))}
                   </div>
