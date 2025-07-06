@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     images: ['/images/IMG_0609.jpg'],
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/favicon-v2.ico',
+    apple: '/favicon-v2.ico',
   },
 }
 

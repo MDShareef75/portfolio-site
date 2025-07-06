@@ -37,6 +37,7 @@ const db = admin.firestore();
 export const visitorCount = onRequest(async (req, res) => {
   // Get the visitor's IP address
   const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.connection.remoteAddress || '';
+  const userAgent = req.headers['user-agent'] || '';
 
   const ipRef = db.collection('visitor_ips').doc(ip);
   const countRef = db.collection('meta').doc('visitorCount');
@@ -57,9 +58,12 @@ export const visitorCount = onRequest(async (req, res) => {
   }
 
   if (shouldIncrement) {
-    await ipRef.set({ lastVisit: now });
+    await ipRef.set({ lastVisit: now, userAgent, timestamp: now });
     await countRef.set({ count: admin.firestore.FieldValue.increment(1) }, { merge: true });
-    logger.info(`Visitor count incremented for IP: ${ip}`);
+    logger.info(`Visitor count incremented for IP: ${ip}, userAgent: ${userAgent}`);
+  } else {
+    // Always update the last seen userAgent and timestamp
+    await ipRef.set({ lastVisit: now, userAgent, timestamp: now }, { merge: true });
   }
 
   // Always return the current count
