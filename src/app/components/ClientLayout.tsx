@@ -159,9 +159,7 @@ export default function ClientLayout({
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-[#233554]/50 overflow-visible pt-16">
-        {/* Decorative Orb */}
-        <div className="absolute left-1/2 -top-12 -translate-x-1/2 w-32 h-16 md:w-48 md:h-24 bg-gradient-to-tr from-[#64ffda] via-blue-400 to-purple-500 rounded-b-full blur-2xl opacity-80 pointer-events-none z-0" />
+      <footer className="relative z-10 overflow-visible">
         <div className="glassmorphism py-6 md:py-8 relative z-10">
           <div className="container mx-auto px-4">
             <div className="flex justify-center space-x-6 mb-4">

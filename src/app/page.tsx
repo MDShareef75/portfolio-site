@@ -45,6 +45,28 @@ export default function Home() {
               View Our Work
             </a>
           </div>
+          {/* Share Button */}
+          <button
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: "Atom's Innovation",
+                  text: "Check out this awesome portfolio website!",
+                  url: window.location.origin
+                });
+              } else {
+                navigator.clipboard.writeText(window.location.origin);
+                alert('Link copied to clipboard!');
+              }
+            }}
+            className="mt-6 px-8 py-3 rounded-full bg-gradient-to-r from-blue-400 to-[#64ffda] text-[#0a192f] font-semibold shadow-lg hover:from-[#64ffda] hover:to-blue-400 transition-all text-lg flex items-center gap-2"
+            aria-label="Share this website"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4m0 0L8 6m4-4v16" />
+            </svg>
+            Share
+          </button>
         </div>
       </div>
 
@@ -75,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="container mx-auto px-4 py-20 relative">
+      <section className="container mx-auto px-4 py-20 flex flex-col items-center justify-center relative">
         <div className="text-center mb-16">
           <h2 className={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#64ffda] via-blue-400 to-purple-500 text-transparent bg-clip-text animate-gradient drop-shadow-[0_2px_24px_rgba(100,255,218,0.25)]`}>
             What Clients Say
@@ -84,9 +106,8 @@ export default function Home() {
             Don't just take my word for it - here's what some of my amazing clients have to say
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[var(--surface)]/80 backdrop-blur-lg">
+        <div className="flex justify-center items-center w-full">
+          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[var(--surface)]/80 backdrop-blur-lg max-w-md w-full mx-auto">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--surface)]/90 via-[var(--surface)] to-[var(--background)] opacity-90"></div>
             <div className="relative z-10 p-6">
               <div className="flex items-center mb-4">
@@ -104,52 +125,6 @@ export default function Home() {
                 <div>
                   <div className="text-[var(--text)] font-medium">Kalpavruksha Hardware</div>
                   <div className="text-[var(--text-secondary)] text-sm">E-commerce Client</div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          </div>
-          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[var(--surface)]/80 backdrop-blur-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--surface)]/90 via-[var(--surface)] to-[var(--background)] opacity-90"></div>
-            <div className="relative z-10 p-6">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {'★'.repeat(5)}
-                </div>
-              </div>
-              <p className="text-[var(--text-secondary)] mb-4 italic">
-                "Professional, reliable, and delivers high-quality work on time. Mohammed's attention to detail is impressive and the final product exceeded our expectations."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-[var(--text)] font-bold mr-3">
-                  S
-                </div>
-                <div>
-                  <div className="text-[var(--text)] font-medium">Sarah Johnson</div>
-                  <div className="text-[var(--text-secondary)] text-sm">Startup Founder</div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/10 via-blue-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          </div>
-          <div className="group relative overflow-hidden rounded-2xl transition-all duration-500 transform hover:scale-[1.03] shadow-2xl border border-accent/20 bg-[var(--surface)]/80 backdrop-blur-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--surface)]/90 via-[var(--surface)] to-[var(--background)] opacity-90"></div>
-            <div className="relative z-10 p-6">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {'★'.repeat(5)}
-                </div>
-              </div>
-              <p className="text-[var(--text-secondary)] mb-4 italic">
-                "The mobile app Mohammed developed for us has significantly improved our customer engagement. Great communication throughout the project!"
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-[var(--text)] font-bold mr-3">
-                  M
-                </div>
-                <div>
-                  <div className="text-[var(--text)] font-medium">Mike Chen</div>
-                  <div className="text-[var(--text-secondary)] text-sm">Restaurant Owner</div>
                 </div>
               </div>
             </div>

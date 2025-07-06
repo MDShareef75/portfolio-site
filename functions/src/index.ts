@@ -35,19 +35,37 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 export const visitorCount = onRequest(async (req, res) => {
-  const docRef = db.collection('meta').doc('visitorCount');
-  let count = 1;
-  const doc = await docRef.get();
-  if (doc.exists) {
-    count = (doc.data()?.count || 0) + 1;
-    await docRef.update({ count });
-    logger.info(`Visitor count incremented to: ${count}`);
+  // Get the visitor's IP address
+  const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.connection.remoteAddress || '';
+
+  const ipRef = db.collection('visitor_ips').doc(ip);
+  const countRef = db.collection('meta').doc('visitorCount');
+
+  const ipDoc = await ipRef.get();
+  const now = Date.now();
+
+  let shouldIncrement = false;
+
+  if (!ipDoc.exists) {
+    shouldIncrement = true;
   } else {
-    await docRef.set({ count });
-    logger.info(`Initial visitor count set to: ${count}`);
+    const lastVisit = ipDoc.data()?.lastVisit || 0;
+    // 24 hours = 86400000 ms
+    if (now - lastVisit > 86400000) {
+      shouldIncrement = true;
+    }
   }
+
+  if (shouldIncrement) {
+    await ipRef.set({ lastVisit: now });
+    await countRef.set({ count: admin.firestore.FieldValue.increment(1) }, { merge: true });
+    logger.info(`Visitor count incremented for IP: ${ip}`);
+  }
+
+  // Always return the current count
+  const countDoc = await countRef.get();
   res.set('Access-Control-Allow-Origin', '*');
-  res.json({ count });
+  res.json({ count: countDoc.data()?.count || 0 });
 });
 
 // export const helloWorld = onRequest((request, response) => {
