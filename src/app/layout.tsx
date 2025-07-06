@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     siteName: "Atom's Innovation Hub",
     images: [
       {
-        url: '/images/IMG_0609.jpg',
+        url: '/images/atoms-innovation.png',
         width: 1200,
         height: 630,
-        alt: 'Mohammed Shareef - Full Stack Developer',
+        alt: 'Atom Innovation Logo',
       },
     ],
   },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Atom's Innovation Hub | Mohammed Shareef",
     description: 'Full-stack developer specializing in modern web technologies, AI, and embedded systems',
-    images: ['/images/IMG_0609.jpg'],
+    images: ['/images/atoms-innovation.png'],
   },
   icons: {
     icon: '/favicon-v2.ico',

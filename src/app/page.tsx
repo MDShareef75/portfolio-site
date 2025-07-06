@@ -51,11 +51,13 @@ export default function Home() {
               if (navigator.share) {
                 navigator.share({
                   title: "Atom's Innovation",
-                  text: "Check out this awesome portfolio website!",
+                  text: "We build stunning websites, mobile apps, and digital solutions for your business. Check us out!",
                   url: window.location.origin
                 });
               } else {
-                navigator.clipboard.writeText(window.location.origin);
+                navigator.clipboard.writeText(
+                  "We build stunning websites, mobile apps, and digital solutions for your business. Check us out! " + window.location.origin
+                );
                 alert('Link copied to clipboard!');
               }
             }}
