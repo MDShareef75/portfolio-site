@@ -61,13 +61,13 @@ export default function ClientLayout({
                     priority
                   />
                 </div>
-                <span className="hidden sm:inline-block text-lg md:text-2xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight drop-shadow-lg select-none">
+                <span className="hidden lg:inline-block text-lg xl:text-2xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight drop-shadow-lg select-none">
                   Atom's Innovation
                 </span>
               </Link>
 
-              {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-8 bg-[#101a2f]/70 backdrop-blur-lg border border-accent/10 shadow-lg rounded-2xl px-6 py-2">
+              {/* Desktop Navigation (now only at lg and above) */}
+              <div className="hidden lg:flex items-center space-x-8 bg-[#101a2f]/70 backdrop-blur-lg border border-accent/10 shadow-lg rounded-2xl px-6 py-2">
                 {[
                   { href: '/', label: 'Home' },
                   { href: '/about', label: 'About' },
@@ -104,8 +104,8 @@ export default function ClientLayout({
               {/* Theme Toggle and Mobile Menu */}
               <div className="flex items-center space-x-2">
                 <ThemeToggle />
-                {/* Mobile Menu Button */}
-                <div className="md:hidden">
+                {/* Mobile Menu Button (show below lg) */}
+                <div className="lg:hidden">
                   <button 
                     className="text-gray-300 hover:text-[#64ffda] transition-all duration-500 p-2 hover:bg-[#233554]/30 rounded-lg"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

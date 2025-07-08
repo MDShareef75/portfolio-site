@@ -133,7 +133,7 @@ export default function Blog() {
             >
               {/* Card Background */}
               {theme === 'dark' && (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#112240]/90 via-[#112240] to-[#0a192f] opacity-90"></div>
               )}
               {/* Post Image */}
               <div className="relative aspect-video">
@@ -166,11 +166,11 @@ export default function Blog() {
                           : 'text-[#64ffda] border-[#64ffda] bg-[#112240] hover:bg-[#233554] hover:text-blue-400'}`}
                       aria-label={`Read more about ${post.title}`}
                       type="button"
-                    >
-                      Read More
+                >
+                  Read More
                       <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                     </button>
                   </div>
                   <SocialShare
@@ -206,29 +206,29 @@ export default function Blog() {
               <p className="text-gray-300 mb-2">Get the latest insights, tutorials, and tech updates</p>
               <p className="text-sm text-gray-400 mb-6">No spam, unsubscribe anytime</p>
               
-              {subscribed ? (
+            {subscribed ? (
                 <div className="text-center">
                   <div className="text-6xl mb-4">🎉</div>
                   <p className="text-[#64ffda] text-lg font-semibold">Thank you for subscribing!</p>
                   <p className="text-gray-400 text-sm mt-2">You'll receive our next newsletter soon.</p>
                 </div>
-              ) : (
-                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                  <div className="flex-1">
-                    <input
-                      type="email"
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <div className="flex-1">
+                  <input
+                    type="email"
                       placeholder="Enter your email address"
-                      value={email}
-                      onChange={handleEmailChange}
+                    value={email}
+                    onChange={handleEmailChange}
                       className={`w-full px-4 py-3 bg-[#233554]/50 border ${emailError ? 'border-red-500' : 'border-[#64ffda]/20'} rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#64ffda] focus:border-transparent transition-all duration-300`}
-                    />
-                    {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
-                  </div>
-                  <button 
-                    onClick={handleSubscribe}
-                    disabled={loading}
+                  />
+                  {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+                </div>
+                <button 
+                  onClick={handleSubscribe}
+                  disabled={loading}
                     className="bg-gradient-to-r from-[#64ffda] to-blue-400 text-[#0a192f] hover:from-blue-400 hover:to-[#64ffda] transition-all duration-300 px-6 py-3 rounded-lg font-medium whitespace-nowrap disabled:bg-gray-500 disabled:cursor-not-allowed transform hover:scale-105"
-                  >
+                >
                     {loading ? (
                       <span className="flex items-center">
                         <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-[#0a192f]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -240,9 +240,9 @@ export default function Blog() {
                     ) : (
                       'Subscribe'
                     )}
-                  </button>
-                </div>
-              )}
+                </button>
+              </div>
+            )}
               
               <div className="mt-6 text-xs text-gray-500">
                 <p>By subscribing, you agree to our privacy policy and terms of service.</p>

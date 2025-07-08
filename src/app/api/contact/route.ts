@@ -5,12 +5,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json();
+  const { name, email, subject, message } = await request.json();
 
     // Validation
-    if (!email || !name || !message) {
-      return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
-    }
+  if (!email || !name || !message) {
+    return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+  }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

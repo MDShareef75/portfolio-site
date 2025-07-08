@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Atom's Innovation Hub | Mohammed Shareef",
-    description: 'Full-stack developer specializing in modern web technologies, AI, and embedded systems',
+  description: 'Full-stack developer specializing in modern web technologies, AI, and embedded systems',
     images: ['/images/atoms-innovation.png'],
   },
   icons: {
