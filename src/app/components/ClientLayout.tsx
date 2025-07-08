@@ -48,17 +48,22 @@ export default function ClientLayout({
             <div className="flex items-center justify-between">
               <Link 
                 href="/" 
-                className="block w-12 h-12 md:w-16 md:h-16 relative group"
+                className="flex items-center space-x-3 w-auto h-12 md:h-16 relative group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/20 to-blue-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-                <Image
-                  src="/images/atoms-innovation.png"
-                  alt="Atom Innovation Logo"
-                  fill
-                  className="object-cover rounded-[30%] group-hover:scale-105 transition-transform duration-500 relative z-10"
-                  sizes="(max-width: 768px) 48px, 64px"
-                  priority
-                />
+                <div className="relative w-12 h-12 md:w-16 md:h-16">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#64ffda]/20 to-blue-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+                  <Image
+                    src="/images/atoms-innovation.png"
+                    alt="Atom Innovation Logo"
+                    fill
+                    className="object-cover rounded-[30%] group-hover:scale-105 transition-transform duration-500 relative z-10"
+                    sizes="(max-width: 768px) 48px, 64px"
+                    priority
+                  />
+                </div>
+                <span className="hidden sm:inline-block text-lg md:text-2xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight drop-shadow-lg select-none">
+                  Atom's Innovation
+                </span>
               </Link>
 
               {/* Desktop Navigation */}
