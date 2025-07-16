@@ -92,7 +92,7 @@ export default function Carousel() {
     
     const timer = setTimeout(() => {
       next();
-    }, 12000);
+    }, 8000);
     
     return () => clearTimeout(timer);
   }, [current, isPlaying, next]);
@@ -151,7 +151,7 @@ export default function Carousel() {
       >
         {/* 3D Cube Container */}
         <div 
-          className="relative preserve-3d transition-transform duration-1500 ease-out"
+          className="relative preserve-3d transition-transform duration-1000 ease-out"
           style={{
             width: `${faceSize}px`,
             height: `${faceSize}px`,
@@ -227,13 +227,13 @@ export default function Carousel() {
 
                 
                 {/* Image */}
-                <img
+        <img
                   src={image.src}
                   alt={image.alt}
                   className={`w-full h-full object-contain transition-all duration-300 ${
                     faceSize < 300 ? 'p-4' : faceSize < 400 ? 'p-6' : 'p-8'
                   }`}
-                  draggable={false}
+          draggable={false}
                   style={{ 
                     imageRendering: 'crisp-edges',
                     filter: 'contrast(1.1) brightness(1.1) saturate(1.2)',
@@ -248,7 +248,7 @@ export default function Carousel() {
               </div>
             );
           })}
-        </div>
+      </div>
 
         {/* Responsive Navigation Arrows */}
         <button
