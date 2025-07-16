@@ -37,6 +37,11 @@ module.exports = {
         text: '#e2e8f0',
         secondary: '#38bdf8',
       },
+      perspective: {
+        '1200': '1200px',
+        '1000': '1000px',
+        '500': '500px',
+      },
     },
   },
   plugins: [],

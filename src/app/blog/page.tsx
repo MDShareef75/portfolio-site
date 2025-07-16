@@ -158,23 +158,22 @@ export default function Blog() {
                 <p className={`mb-4 line-clamp-3 transition-colors duration-500 ${theme === 'light' ? 'text-[#475569]' : 'text-gray-300'}`}>{post.excerpt}</p>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2">
                   <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => window.location.href = `/blog/${post.id}`}
+                                        <Link
+                      href={`/blog/${post.id}`}
                       className={`inline-flex items-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded-lg px-4 py-2 font-medium text-base border shadow-sm
                         ${theme === 'light'
                           ? 'text-[#0891b2] border-[#0891b2] bg-white hover:bg-[var(--accent)]/10 hover:text-[#2260a9]'
                           : 'text-[#64ffda] border-[#64ffda] bg-[#112240] hover:bg-[#233554] hover:text-blue-400'}`}
                       aria-label={`Read more about ${post.title}`}
-                      type="button"
-                >
-                  Read More
+                    >
+                      Read More
                       <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                    </button>
+                    </Link>
                   </div>
                   <SocialShare
-                    url={`${window.location.origin}/blog/${post.id}`}
+                    url={`${typeof window !== 'undefined' ? window.location.origin : 'https://atomsinnovation.com'}/blog/${post.id}`}
                     title={post.title}
                     description={post.excerpt}
                     hashtags={post.tags}

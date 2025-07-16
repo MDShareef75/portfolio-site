@@ -4,6 +4,7 @@ import './globals.css'
 import ClientLayout from './components/ClientLayout'
 import { ThemeProvider, useTheme } from './context/ThemeContext'
 import BackToTopButton from './components/BackToTopButton'
+import ErrorBoundary from './components/ErrorBoundary'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -82,12 +83,14 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-[url('/circuit-pattern.svg')] opacity-[0.07] mix-blend-overlay"></div>
         </div>
         
-        <ThemeProvider>
-          <ClientLayout inter={inter}>
-            {children}
-            <BackToTopButton />
-          </ClientLayout>
-        </ThemeProvider>
+        <ErrorBoundary>
+          <ThemeProvider>
+            <ClientLayout inter={inter}>
+              {children}
+              <BackToTopButton />
+            </ClientLayout>
+          </ThemeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )

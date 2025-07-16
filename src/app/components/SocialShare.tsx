@@ -34,7 +34,20 @@ export default function SocialShare({ url, title, description = '', hashtags = [
       // You could add a toast notification here
       alert('Link copied to clipboard!')
     } catch (err) {
-      console.error('Failed to copy link:', err)
+      // Fallback for browsers that don't support clipboard API
+      try {
+        // Create a temporary textarea element
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Link copied to clipboard!');
+      } catch (fallbackErr) {
+        // If all else fails, show the URL to the user
+        alert(`Please copy this link manually: ${url}`);
+      }
     }
   }
 

@@ -12,9 +12,8 @@ html {
     --accent: #64ffda;
   }
 
-  * {
-    @apply transition-all duration-300;
-  }
+  /* Remove universal transition for better mobile performance
+     Apply transitions only where needed */
 
   body, html {
     @apply antialiased;
@@ -425,6 +424,156 @@ html {
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+}
+
+/* Screen reader only class for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Mobile text stability fixes */
+@media (max-width: 768px) {
+  h1, h2, h3, h4, h5, h6, p {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: auto;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Reduce GPU intensive effects on mobile */
+  .blur-3xl {
+    filter: blur(20px) !important;
+  }
+  
+  .blur-2xl {
+    filter: blur(15px) !important;
+  }
+  
+  /* Ensure text stays visible during scroll */
+  .relative {
+    position: relative !important;
+    z-index: auto;
+  }
+}
+
+/* 3D Carousel CSS */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Water Glass Effect for Carousel */
+.water-glass-face {
+  overflow: hidden;
+}
+
+.water-glass-face::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: water-shine 4s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.water-ripple-bg {
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 70% 80%,
+    rgba(100, 255, 218, 0.1) 0%,
+    transparent 50%
+  );
+  animation: water-ripple 6s ease-in-out infinite;
+}
+
+.water-surface {
+  background: linear-gradient(
+    45deg,
+    rgba(100, 255, 218, 0.1) 0%,
+    rgba(56, 189, 248, 0.05) 25%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(147, 197, 253, 0.05) 75%,
+    rgba(100, 255, 218, 0.08) 100%
+  );
+  animation: water-flow 8s ease-in-out infinite;
+  mix-blend-mode: overlay;
+}
+
+@keyframes water-shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+@keyframes water-ripple {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes water-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 0.3;
+  }
+  25% {
+    background-position: 100% 25%;
+    opacity: 0.5;
+  }
+  75% {
+    background-position: 50% 75%;
+    opacity: 0.4;
+  }
+}
+
+/* Anti-aliasing for smooth 3D rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for smooth transitions */
+.preserve-3d,
+.backface-hidden {
+  will-change: transform;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 /* Enhanced button hover effects */

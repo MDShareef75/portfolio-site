@@ -11,8 +11,10 @@ export function generateStaticParams() {
   return blogPosts.map(post => ({ id: post.id.toString() }))
 }
 
-export default function BlogPost({ params }: { params: { id: string } }) {
-  const post = blogPosts.find(post => post.id.toString() === params.id)
+export default async function BlogPost({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const post = blogPosts.find(post => post.id.toString() === resolvedParams.id)
+  
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">

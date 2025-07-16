@@ -9,15 +9,14 @@ export default function Home() {
   const { theme } = useTheme();
   return (
     <div className="overflow-x-hidden flex flex-col relative bg-gradient-to-b from-[var(--background)] via-[var(--surface)] to-[var(--background)] pb-8 md:pb-12 xl:pb-20">
-      {/* Futuristic animated background glow behind headline and carousel */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vh] md:w-[60vw] md:h-[40vh] bg-gradient-to-br from-accent/30 via-secondary/20 to-surface/0 rounded-full blur-3xl opacity-70 pointer-events-none z-0 animate-pulse-slow"></div>
-      <div className="w-full flex flex-col items-center justify-center mt-16 md:mt-12 lg:mt-20 mb-2 md:mb-4 px-4 relative z-10">
-        {/* Animated glow behind company name */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[18vh] bg-gradient-to-r from-accent/30 via-secondary/20 to-surface/0 rounded-full blur-2xl opacity-80 pointer-events-none animate-pulse-slow"></div>
-        <h1 className="relative text-4xl md:text-5xl xl:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight text-center animate-fade-in mt-2 md:mt-4 xl:mt-0">
+      {/* Simplified background glow - single layer for better mobile performance */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vh] bg-gradient-to-br from-accent/20 via-secondary/10 to-transparent rounded-full blur-xl opacity-60 pointer-events-none z-0"></div>
+      
+      <div className="w-full flex flex-col items-center justify-center mt-16 md:mt-12 lg:mt-20 mb-2 md:mb-4 px-4 relative z-20">
+        <h1 className="relative z-30 text-4xl md:text-5xl xl:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight text-center mt-2 md:mt-4 xl:mt-0">
           Atom's Innovation
         </h1>
-        <p className={`relative mt-2 md:mt-4 mb-4 md:mb-8 xl:mb-12 text-sm md:text-lg xl:text-2xl font-medium text-center animate-fade-in ${theme === 'light' ? 'text-[var(--text)]' : 'text-[var(--text-secondary)]'}`}>
+        <p className={`relative z-30 mt-2 md:mt-4 mb-4 md:mb-8 xl:mb-12 text-sm md:text-lg xl:text-2xl font-medium text-center ${theme === 'light' ? 'text-[var(--text)]' : 'text-[var(--text-secondary)]'}`}>
           Building Digital Experiences for the Future
         </p>
       </div>
@@ -48,6 +47,8 @@ export default function Home() {
           {/* Share Button */}
           <button
             onClick={() => {
+              if (typeof window === 'undefined') return;
+              
               if (navigator.share) {
                 navigator.share({
                   title: "Atom's Innovation",
@@ -57,8 +58,11 @@ export default function Home() {
               } else {
                 navigator.clipboard.writeText(
                   "We build stunning websites, mobile apps, and digital solutions for your business. Check us out! " + window.location.origin
-                );
-                alert('Link copied to clipboard!');
+                ).then(() => {
+                  alert('Link copied to clipboard!');
+                }).catch(() => {
+                  alert('Failed to copy link. Please copy manually: ' + window.location.origin);
+                });
               }
             }}
             className="mt-6 px-8 py-3 rounded-full bg-gradient-to-r from-blue-400 to-[#64ffda] text-[#0a192f] font-semibold shadow-lg hover:from-[#64ffda] hover:to-blue-400 transition-all text-lg flex items-center gap-2"
@@ -74,17 +78,9 @@ export default function Home() {
 
       <section className="w-full px-0 py-0 flex flex-col items-center justify-center relative">
         <div className="text-center w-full max-w-3xl relative">
-          {/* Additional colorful elements */}
-          <div className="absolute -top-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse-slow delay-500"></div>
-          
-          {/* Animated dots */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-0 w-2 h-2 bg-accent/50 rounded-full animate-float"></div>
-            <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-secondary/50 rounded-full animate-float delay-300"></div>
-            <div className="absolute bottom-1/4 left-1/4 w-2 h-2 bg-accent/50 rounded-full animate-float delay-700"></div>
-            <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-secondary/50 rounded-full animate-float delay-1000"></div>
-          </div>
+          {/* Simplified background elements for better mobile performance */}
+          <div className="absolute -top-20 -left-20 w-40 h-40 bg-secondary/10 rounded-full blur-xl opacity-50 pointer-events-none"></div>
+          <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-accent/10 rounded-full blur-xl opacity-50 pointer-events-none"></div>
 
           {/* Profile Image Container with enhanced glow */}
           {/* Removed as per new design */}

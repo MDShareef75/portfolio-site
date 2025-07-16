@@ -7,6 +7,8 @@ export default function BackToTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const onScroll = () => {
       setVisible(window.scrollY > 300);
     };
@@ -15,6 +17,7 @@ export default function BackToTopButton() {
   }, []);
 
   const handleClick = () => {
+    if (typeof window === 'undefined') return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
