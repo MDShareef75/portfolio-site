@@ -8,9 +8,29 @@ import { useTheme } from './context/ThemeContext'
 export default function Home() {
   const { theme } = useTheme();
   return (
-    <div className="overflow-x-hidden flex flex-col relative bg-gradient-to-b from-[var(--background)] via-[var(--surface)] to-[var(--background)] pb-8 md:pb-12 xl:pb-20">
-      {/* Simplified background glow - single layer for better mobile performance */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vh] bg-gradient-to-br from-accent/20 via-secondary/10 to-transparent rounded-full blur-xl opacity-60 pointer-events-none z-0"></div>
+    <div 
+      className="overflow-x-hidden overflow-y-auto flex flex-col relative pb-8 md:pb-12 xl:pb-20"
+      style={{
+        background: theme === 'light' 
+          ? 'linear-gradient(45deg, #dbeafe 0%, #dcfce7 25%, #fae8ff 50%, #d1fae5 75%, #bfdbfe 100%)'
+          : 'linear-gradient(to bottom, var(--background), var(--surface), var(--background))',
+        minHeight: '100vh',
+        width: '100vw'
+      }}
+    >
+            {/* Simple background overlay */}
+      {theme === 'light' && (
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vh] bg-gradient-to-br from-blue-400/10 via-cyan-300/5 to-transparent rounded-full blur-2xl opacity-50"></div>
+        </div>
+      )}
+      
+      {/* Dark theme background glow */}
+      {theme === 'dark' && (
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vh] bg-gradient-to-br from-accent/20 via-secondary/10 to-transparent rounded-full blur-xl opacity-60 pointer-events-none z-0"></div>
+      )}
+
+
       
       <div className="w-full flex flex-col items-center justify-center mt-16 md:mt-12 lg:mt-20 mb-2 md:mb-4 px-4 relative z-20">
         <h1 className="relative z-30 text-4xl md:text-5xl xl:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-700 text-transparent bg-clip-text tracking-tight text-center mt-2 md:mt-4 xl:mt-0">

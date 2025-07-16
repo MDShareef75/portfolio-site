@@ -35,9 +35,9 @@ export default function ClientLayout({
     return pathname.startsWith(path)
   }
 
-  return (
+    return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Animated background elements removed */}
+
 
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 right-0 z-50">
