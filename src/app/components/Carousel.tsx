@@ -43,8 +43,14 @@ export default function Carousel() {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [faceSize, setFaceSize] = useState(500);
+  const [mounted, setMounted] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const length = images.length;
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Responsive face size calculation
   useEffect(() => {
@@ -69,10 +75,13 @@ export default function Carousel() {
       setFaceSize(Math.max(newSize, 200)); // Minimum size of 200px
     };
 
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
+    // Only run on client side after mount
+    if (typeof window !== 'undefined' && mounted) {
+      updateSize();
+      window.addEventListener('resize', updateSize);
+      return () => window.removeEventListener('resize', updateSize);
+    }
+  }, [mounted]);
 
   const cubeDepth = faceSize / 2;
 

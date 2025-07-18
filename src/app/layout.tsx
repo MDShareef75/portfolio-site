@@ -45,7 +45,10 @@ export const metadata: Metadata = {
     images: ['/images/atoms-innovation.png'],
   },
   icons: {
-    icon: '/favicon-v2.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' },
+      { url: '/favicon-v2.ico', sizes: '32x32', type: 'image/x-icon' }
+    ],
     apple: '/favicon-v2.ico',
   },
 }
@@ -62,8 +65,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-[var(--background)] text-[var(--text)] relative overflow-x-hidden`}>
+        <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+
+        <body className={`${inter.className} min-h-screen flex flex-col bg-[var(--background)] text-[var(--text)] relative overflow-x-hidden`} suppressHydrationWarning>
         {/* Simple background */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)] to-[var(--surface)]"></div>

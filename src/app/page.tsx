@@ -64,6 +64,30 @@ export default function Home() {
               View Our Work
             </a>
           </div>
+          
+          {/* Refer and Earn Section */}
+          <div className="mt-6 w-full flex flex-col items-center gap-4">
+            <button
+              onClick={() => {
+                // This will trigger the referral popup
+                const event = new CustomEvent('showReferralPopup');
+                window.dispatchEvent(event);
+              }}
+              className="px-10 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-bold shadow-2xl hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 transition-all text-lg transform hover:scale-105 animate-pulse hover:animate-none flex items-center gap-3"
+            >
+              <span className="text-2xl">🎁</span>
+              Refer & Earn ₹5,000
+              <span className="text-2xl">💰</span>
+            </button>
+            
+            <a
+              href="/referrer-status"
+              className="text-cyan-400 hover:text-cyan-300 text-sm underline flex items-center gap-2 transition-colors"
+            >
+              <span>📊</span>
+              Already have referrals? Check your status
+            </a>
+          </div>
           {/* Share Button */}
           <button
             onClick={() => {

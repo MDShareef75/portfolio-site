@@ -6,7 +6,8 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import VisitorCounter from './VisitorCounter'
 import ThemeToggle from './ThemeToggle'
-import { useTheme } from '../context/ThemeContext'
+import ReferralPopup from './ReferralPopup'
+import ReferralForm from './ReferralForm'
 
 export default function ClientLayout({
   children,
@@ -17,22 +18,22 @@ export default function ClientLayout({
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [showReferralForm, setShowReferralForm] = useState(false)
   const pathname = usePathname()
-  const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  if (!mounted) {
-    return null
-  }
 
   const isActive = (path: string) => {
     if (path === '/') {
       return pathname === path
     }
     return pathname.startsWith(path)
+  }
+
+  const handleReferNow = () => {
+    setShowReferralForm(true)
   }
 
     return (
@@ -74,6 +75,8 @@ export default function ClientLayout({
                   { href: '/projects', label: 'Projects' },
                   { href: '/services', label: 'Services' },
                   { href: '/blog', label: 'Blog' },
+                  { href: '/client-portal', label: 'Client Portal' },
+                  { href: '/referrer-status', label: 'Check Referrals' },
                   { href: '/contact', label: 'Contact' },
                 ].map((item) => {
                   const active = isActive(item.href)
@@ -124,8 +127,7 @@ export default function ClientLayout({
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-              <div className={`md:hidden mt-2 pb-4 border-t border-[#233554]/50 animate-fade-in 
-                ${theme === 'light' ? 'bg-[#e9eef3]/95' : ''}`}>
+              <div className="md:hidden mt-2 pb-4 border-t border-[#233554]/50 animate-fade-in bg-[var(--surface)]/95">
                 <div className="flex flex-col space-y-2 pt-4">
                   {[
                     { href: '/', label: 'Home' },
@@ -133,6 +135,8 @@ export default function ClientLayout({
                     { href: '/projects', label: 'Projects' },
                     { href: '/services', label: 'Services' },
                     { href: '/blog', label: 'Blog' },
+                    { href: '/client-portal', label: 'Client Portal' },
+                    { href: '/referrer-status', label: 'Check Referrals' },
                     { href: '/contact', label: 'Contact' },
                   ].map((item) => {
                     const active = isActive(item.href)
@@ -141,9 +145,9 @@ export default function ClientLayout({
                         key={item.href}
                         href={item.href}
                         className={`transition-all duration-500 py-3 px-4 rounded-lg text-sm 
-                          ${theme === 'light'
-                            ? `${active ? 'bg-[var(--accent)]/10 text-[#274690] border-l-2 border-[var(--accent)] translate-x-2' : 'text-[#274690] hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:translate-x-2'}`
-                            : `${active ? 'bg-[#64ffda]/10 text-[#64ffda] border-l-2 border-[#64ffda] translate-x-2' : 'text-gray-300 hover:bg-[#233554]/30 hover:text-[#64ffda] hover:translate-x-2'}`
+                          ${active 
+                            ? 'bg-[var(--accent)]/10 text-[var(--accent)] border-l-2 border-[var(--accent)] translate-x-2' 
+                            : 'text-[var(--text)] hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:translate-x-2'
                           }`}
                         onClick={() => setMobileMenuOpen(false)}
                       >
@@ -192,7 +196,7 @@ export default function ClientLayout({
               </a>
             </div>
             <p className="text-center text-gray-400 text-sm md:text-base">
-              © {new Date().getFullYear()} Mohammed Shareef. All rights reserved.
+              © 2025 Mohammed Shareef. All rights reserved.
             </p>
             <div className="text-center mt-2 text-xs text-[#64ffda]">
               <VisitorCounter />
@@ -200,6 +204,17 @@ export default function ClientLayout({
           </div>
         </div>
       </footer>
+
+      {/* Referral System Components */}
+      <ReferralPopup 
+        onReferNow={handleReferNow}
+        onClientLogin={() => {}} // No longer used, links directly to signup page
+      />
+      
+      <ReferralForm 
+        isOpen={showReferralForm}
+        onClose={() => setShowReferralForm(false)}
+      />
     </div>
   )
 }

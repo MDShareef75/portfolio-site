@@ -5,8 +5,10 @@ import { createPortal } from 'react-dom';
 
 export default function BackToTopButton() {
   const [visible, setVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     if (typeof window === 'undefined') return;
     
     const onScroll = () => {
@@ -21,7 +23,7 @@ export default function BackToTopButton() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (typeof window === 'undefined') return null;
+  if (!mounted || typeof window === 'undefined') return null;
 
   return createPortal(
     <button

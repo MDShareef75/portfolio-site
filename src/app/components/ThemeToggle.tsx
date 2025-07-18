@@ -1,15 +1,35 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <button
+        className="relative p-2 rounded-lg bg-[#112240]/50 border border-accent/20 hover:bg-[#112240]/70 transition-all duration-300 group"
+        aria-label="Loading theme toggle"
+        suppressHydrationWarning
+      >
+        <div className="w-5 h-5 animate-pulse bg-gray-400 rounded" />
+      </button>
+    )
+  }
 
   return (
     <button
       onClick={toggleTheme}
       className="relative p-2 rounded-lg bg-[#112240]/50 border border-accent/20 hover:bg-[#112240]/70 transition-all duration-300 group"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      suppressHydrationWarning
     >
       {theme === 'dark' ? (
         // Sun icon for light mode
